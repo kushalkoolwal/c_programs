@@ -4,6 +4,11 @@
 #include<ctype.h>
 
 /*  copies input to output */
+/*  EOF is defined as -1 on this platform.
+	'int' instead of 'char' is used to detect end of input.
+    'char' can't be used because 'c' should be big enough to hold EOF
+    in addition to any possible char values and hence 'int' is used.
+ */
 void copy () {
 
 	int c;
