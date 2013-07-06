@@ -57,10 +57,18 @@ int main (void) {
 		}
 
 		if (c >= '0' && c <= '9') {	  /* check if char is a digit */
-			digitcount=0;
 			++tdigitcount;
+
+			/*digitcount=0;
 			digitcount=ndigits[c-'0'];			
-			ndigits[c-'0'] = ++digitcount;
+			ndigits[c-'0'] = ++digitcount;*/
+
+			/* first increment the value stored in ndigits[i] and then store
+			   the value back to ndigits[i]. The abvove three lines are replaced
+			   with the next line.
+			 */
+			++ndigits[c - '0'];
+			
 		}
 		else if (c == ' ' || c == '\n' || c == 't')	/* check if whitespace */
 			++nwhite;
