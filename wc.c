@@ -10,8 +10,9 @@
 #include<stdlib.h>
 #include<ctype.h>
 
-#define IN 		1	/*inside the word */
-#define OUT		0	/*outside the word */
+#define IN 			1	/* inside the word */
+#define OUT			0	/* outside the word */
+#define NO_DIGITS	10  /* no. of digits in characters set (0...9) */
 
 /*  EOF is defined as -1 on this platform.
 	'int' instead of 'char' is used to detect end of input (EOF in this case).
@@ -25,16 +26,22 @@
 
 int main (void) {
 
-	int c, word_status;
+	int c, word_status, i;
 	long nl,nc,nw;
+
+	int nwhite, nother, ndigits[NO_DIGITS]={0}, digitcount, tdigitcount;
 	
 	/* assignments associate from right to left*/
 	nl=nc=nw=0;
 	word_status=OUT;
 
+	nwhite=nother=0;
+	digitcount=tdigitcount=0;
+
 	/* keep reading until EOF is encountered */
-	while ((c=getchar()) != EOF) {
+	while ((c = getchar()) != EOF) {
 		nc++; 						  /* count character immediately */
+
 		if (c == '\n')
 			nl++; 					  /* count lines as soon we encounter '\n'*/
 
@@ -48,11 +55,26 @@ int main (void) {
 			word_status=IN;
 			nw++;					 /*count no. of words */
 		}
+
+		if (c >= '0' && c <= '9') {	  /* check if char is a digit */
+			digitcount=0;
+			++tdigitcount;
+			digitcount=ndigits[c-'0'];			
+			ndigits[c-'0'] = ++digitcount;
+		}
+		else if (c == ' ' || c == '\n' || c == 't')	/* check if whitespace */
+			++nwhite;
+		else							/* else other type */		
+			++nother;
 	}
 
 	printf("No. of characters:%ld\n", nc);
 	printf("No. of lines:%ld\n", nl);
 	printf("No. of words:%ld\n", nw);
-
+	printf("Total digits:%d\n", tdigitcount);
+	printf("Digits = ");
+	for (i = 0; i < NO_DIGITS; i++)
+		printf(" %d", ndigits[i]);
+	printf(", White space = %d, Others = %d\n", nwhite, nother);
 	return 0;
 }
