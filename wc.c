@@ -34,14 +34,19 @@ int main (void) {
 
 	/* keep reading until EOF is encountered */
 	while ((c=getchar()) != EOF) {
-		nc++; 			/* count character immediately */
+		nc++; 						  /* count character immediately */
 		if (c == '\n')
-			nl++;		/* count lines as soon we encounter '\n' */
+			nl++; 					  /* count lines as soon we encounter '\n'*/
+
+		/* Expressions connected by && or ¦¦ are evaluated left to right, and is
+		 * is guaranteed that evaluation will stop as soon as the truth or
+		 * falsehood is known.
+		 */
 		if (c == ' ' || c == '\n' || c == 't')
 			word_status=OUT;			
 		else if (word_status == OUT) {
 			word_status=IN;
-			nw++;	
+			nw++;					 /*count no. of words */
 		}
 	}
 
