@@ -3,36 +3,41 @@
 #include<stdlib.h>
 #include<ctype.h>
 
+/* copies input to output */
+void copy () {
+
+	int c;
+
+	c=getchar();
+	while (c!=EOF) {	
+		putchar(c);
+		c=getchar();
+	}
+}
 
 void display_menu () {
 
-	printf("\n***Simulate UNIX utilties in C***\n");
+	printf("\n***Simulate UNIX utilities in C***\n");
 	printf("Press 0  to display this menu\n");	
-	printf("Press 1  for 'wc' program\n");
-	printf("Press 2  to display BST in-order\n");
-	printf("Press 3  to search for an element\n");
-	printf("Press 4  to delete an element from BST\n");
-	printf("Press 5  to delete entire BST\n");
-	printf("Press 6  to find height (max depth) of BST\n");
-	printf("Press 7  to find size of BST\n");
-	printf("Press 8  to mirror a BST\n");
-	printf("Press 9  to find min. node in BST\n");
-	printf("Press 10 to find max. node in BST\n");
+	printf("Press 1  for 'echo' program\n");
 	printf("Press -1 to quit\n");
 
 }
 
-
 int main (void) {
 
-	int command;
+	int command;	
 	
+	display_menu ();
 	printf("Enter a command from above menu:");
 	scanf("%d", &command);
-	switch (command) {
-	
+	switch (command) {	
+		case 0:
+			display_menu ();
+			break;
 		case 1:
-			display_menu();
+			copy ();
+			display_menu ();
 			break;
 		case -1:
 			return 0;
