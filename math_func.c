@@ -3,13 +3,25 @@
 #include<stdlib.h>
 #include<ctype.h>
 
+/*  5! = 5 * 4 * 3 * 2 * 1
+	n = n * (n-1)
+ */
+int factorial (int num) {
+
+	int i, result=1;
+	
+	for (i=num; i>=1; i--)
+		result = result * num;
+	
+	return result;
+}
 
 int mypow (int base, int power) {
 
 	int i,result=1;
 	
 	for (i = 1; i <= power; i++)
-		result=result*base;
+		result = result * base;
 
 	return result;
 }
@@ -19,6 +31,7 @@ void display_menu () {
 	printf("\n***Math functions in C***\n");
 	printf("Press 0  to display this menu\n");
 	printf("Press 1  to calculate power\n");
+	printf("Press 2  to calculate factorial\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -27,8 +40,7 @@ void display_menu () {
 int main (void) {
 
 	int command;
-	int base, power=0;
-
+	int base, power, num;
 	display_menu ();
 	printf("Enter a command from above menu:");
 	scanf("%d", &command);
@@ -44,6 +56,12 @@ int main (void) {
 			printf("Enter power:");
 			scanf("%d", &power);
 			printf("The pow(base,power) is %d\n", mypow(base, power));
+			break;
+		case 2:
+			printf("Enter number to find factorial:");
+			scanf("%d", &num);			
+			printf("The factorial of %d is %d\n", num, factorial(num));
+			break;
 		case -1:
 			return 0;
 		default:
