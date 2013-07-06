@@ -1,6 +1,9 @@
-/* UNIX word count (wc) program
-   Word is defined here as sequence of characters not containing a
-   blank, tab or newline.
+/*	UNIX word count (wc) program
+	Word is defined here as sequence of characters not containing a
+    blank, tab or newline.
+	Running program:
+	./a.out
+	./a.out < text.txt	
  */
 #include<stdio.h>
 #include<string.h>
