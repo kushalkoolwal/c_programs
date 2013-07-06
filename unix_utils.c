@@ -3,16 +3,13 @@
 #include<stdlib.h>
 #include<ctype.h>
 
-/* copies input to output */
+/*  copies input to output */
 void copy () {
 
 	int c;
 
-	c=getchar();
-	while (c!=EOF) {	
+	while ((c=getchar())!=EOF)
 		putchar(c);
-		c=getchar();
-	}
 }
 
 void display_menu () {
