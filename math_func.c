@@ -11,6 +11,25 @@ typedef int boolean;
 /* define exit code */
 #define CODE 0
 
+
+/* we use "%" operator to extract the digits from the number.
+   Example: Sum of 47 = 4+7 = 11
+   Note: (4 % 10) = 4, (4 / 10) = 0;	
+ */
+
+int sum_digits (int num) {
+
+	int result=0, rem;
+
+	while (num != 0) {
+		rem = num % 10;
+		printf("Rem=%d\n", rem);
+		result = result + rem;
+		printf("Sum=%d\n", result);
+		num = num / 10;
+	}
+	return result;
+}
 /* prime number has exactly two factors: 1 and number itself
    0 and 1 are not prime numbers. Note that 2 is even and prime.
    Example: 2, 3, 5, 7, 11, 13, 17
@@ -92,10 +111,11 @@ void display_menu () {
 	printf("Press 2  to calculate factorial\n");
 	printf("Press 3  to calculate factors\n");
 	printf("Press 4  to check for prime\n");
+	printf("Press 5  to sum digits of a number\n");
+	printf("Press 6  to express integer as sum of power of two\n");
 	printf("Press -1 to quit\n");
 
 }
-
 
 int main (void) {
 
@@ -132,8 +152,12 @@ int main (void) {
 		case 4:
 			printf("Enter number to find its prime:");
 			scanf("%d", &num);
-			is_prime(num) ? printf("Prime number\n") : printf("Not  prime\n");
-			
+			is_prime(num) ? printf("Prime number\n") : printf("Not  prime\n");	
+			break;
+		case 5:
+			printf("Enter number to sum its digit:");
+			scanf("%d", &num);
+			printf("Sum of digits of %d: %d\n", num, sum_digits(num));
 			break;
 		case -1:
 			return 0;
