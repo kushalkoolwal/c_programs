@@ -3,9 +3,61 @@
 #include<stdlib.h>
 #include<ctype.h>
 
+/* define boolean types */
+#define TRUE 1		/* In C any non-zero value is considered as true */
+#define FALSE 0
+typedef int boolean;
+
+/* define exit code */
+#define CODE 0
+
+/* prime number has exactly two factors: 1 and number itself
+   0 and 1 are not prime numbers. Note that 2 is even and prime.	
+   Example: 2, 3, 5, 7, 11, 13, 17
+ */
+boolean is_prime(int num) {
+
+	int i;
+	
+	if (num == 0 || num == 1)
+		return FALSE;
+
+	for (i = 2; i < num; i++) {
+		if (num % i == 0)
+			return FALSE;
+	}
+	return TRUE;				
+}
+
+/* Factors of 10 are 1, 2, 5, 10. Factor is a number that divides exactly.
+   1 and the number itself are always factors of given number.
+ */
+void factors (int num) {
+
+	int i, result;
+
+	printf("Factors of %d:", num);
+	if (num == 0)
+		printf(" 0");
+	for (i=1; i<=num; i++) {
+		result = num % i;
+			if (result == 0)
+				printf(" %d ", i);
+	}
+	printf("\n");
+}
+
 /*  5! = 5 * 4 * 3 * 2 * 1
 	n = n * (n-1)
  */
+int factorial_recurse (int num) {
+
+	if (num == 0)
+		return 1;
+	else
+		return (num * factorial_recurse(num-1));
+}
+
 int factorial (int num) {
 
 	int i, result=1;
@@ -32,6 +84,8 @@ void display_menu () {
 	printf("Press 0  to display this menu\n");
 	printf("Press 1  to calculate power\n");
 	printf("Press 2  to calculate factorial\n");
+	printf("Press 3  to calculate factors\n");
+	printf("Press 4  to check for prime\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -60,7 +114,20 @@ int main (void) {
 		case 2:
 			printf("Enter number to find factorial:");
 			scanf("%d", &num);			
-			printf("The factorial of %d is %d\n", num, factorial(num));
+			printf("Factorial of %d is %d\n", num, factorial(num));
+			printf("Factorial (recursive)  of %d is %d\n", num, \
+			factorial_recurse(num));			
+			break;
+		case 3:
+			printf("Enter number to find its factors:");
+			scanf("%d", &num);
+			factors(num);			
+			break;
+		case 4:
+			printf("Enter number to find its prime:");
+			scanf("%d", &num);
+			is_prime(num) ? printf("Prime number\n") : printf("Not  prime\n");
+			
 			break;
 		case -1:
 			return 0;
