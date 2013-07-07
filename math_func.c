@@ -12,7 +12,7 @@ typedef int boolean;
 #define CODE 0
 
 /* prime number has exactly two factors: 1 and number itself
-   0 and 1 are not prime numbers. Note that 2 is even and prime.	
+   0 and 1 are not prime numbers. Note that 2 is even and prime.
    Example: 2, 3, 5, 7, 11, 13, 17
  */
 boolean is_prime(int num) {
@@ -29,8 +29,9 @@ boolean is_prime(int num) {
 	return TRUE;				
 }
 
-/* Factors of 10 are 1, 2, 5, 10. Factor is a number that divides exactly.
+/* Factor is a number that divides exactly.
    1 and the number itself are always factors of given number.
+   Example: Factors of 10: 1, 2, 5, 10. 
  */
 void factors (int num) {
 
@@ -47,8 +48,9 @@ void factors (int num) {
 	printf("\n");
 }
 
-/*  5! = 5 * 4 * 3 * 2 * 1
-	n = n * (n-1)
+/*  Defition of n!: n = n * (n-1)
+	Example: 5! = 5 * 4 * 3 * 2 * 1
+	Note: 0! = 1, 1! = 1
  */
 int factorial_recurse (int num) {
 
@@ -68,6 +70,10 @@ int factorial (int num) {
 	return result;
 }
 
+/*  Powers of a number are obtained by multiplying it by itself power times.
+    Example: pow(2,5) = 2^5 = 2 x 2 x 2 x 2 x 2
+	Note: (anything)^0 = 1, 1^(anything) = 1
+ */
 int mypow (int base, int power) {
 
 	int i,result=1;
