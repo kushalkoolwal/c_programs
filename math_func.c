@@ -12,6 +12,43 @@ typedef int boolean;
 #define CODE 0
 
 
+int mypow(int, int); /* prototype for mypower */
+
+
+void power_of_two (int num) {
+
+	int total, currentpow, flag;
+	total=num;
+	currentpow=0;
+	flag=1;
+
+	/* find the nearest number expressible as power of 2 and get power.
+	   Example: For number 22, 16 is the nearest number that can be expressed as
+ 	   power of two.
+     */
+	while (mypow (2, currentpow) < num)
+		currentpow++;
+
+	printf("Power = %d\n", currentpow);
+	/* without 'currentpow--' in the below while loop, we need this	for debug */
+	fflush(stdout);
+
+	while (currentpow >= 0) {
+		if (total >= mypow(2, currentpow)) {
+			if (flag) {		
+				printf("%d = 2^%d", num, currentpow);
+				flag = 0;
+			}
+			else {
+				printf(" + 2^%d", currentpow);
+			}
+			total = total - mypow(2, currentpow);
+		}
+		currentpow--;
+	}
+	printf("\n");
+}
+
 /* we use "%" operator to extract the digits from the number.
    Example: Sum of 47 = 4+7 = 11
    Note: (4 % 10) = 4, (4 / 10) = 0;	
@@ -158,6 +195,11 @@ int main (void) {
 			printf("Enter number to sum its digit:");
 			scanf("%d", &num);
 			printf("Sum of digits of %d: %d\n", num, sum_digits(num));
+			break;
+		case 6:
+			printf("Enter number to express as sum of power of 2's:");
+			scanf("%d", &num);
+			power_of_two(num);
 			break;
 		case -1:
 			return 0;
