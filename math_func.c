@@ -60,9 +60,9 @@ int sum_digits (int num) {
 
 	while (num != 0) {
 		rem = num % 10;
-		printf("Rem=%d\n", rem);
+		/*printf("Rem=%d\n", rem);*/
 		result = result + rem;
-		printf("Sum=%d\n", result);
+		/*printf("Sum=%d\n", result);*/
 		num = num / 10;
 	}
 	return result;
