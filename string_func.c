@@ -12,7 +12,18 @@
 
 #define ARRAY_SIZE 15
 
-/* string copy function */
+
+/* string copy function (pointer) */
+void mystrcpy_v2 (char *d, char *s) {
+
+	while (*s != '\0') {
+		*d = *s;
+		s++;
+		d++;
+	}
+}
+
+/* string copy function (non-pointer) */
 void mystrcpy (char d[], char s[]) {
 
 	int i=0;
@@ -50,7 +61,7 @@ int main (void) {
 		case 1:
 			printf("Enter a string to copy:");
 			scanf("%s", buffer);
-			mystrcpy(output, buffer);
+			mystrcpy_v2(output, buffer);
 			printf("Source: %s, Dest: %s\n", buffer, output);
 			break;
 		case -1:
