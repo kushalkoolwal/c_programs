@@ -12,6 +12,20 @@
 
 #define ARRAY_SIZE 15
 
+
+/* string compare function */
+int mystrcmp (char *s, char *d) {
+
+	int i=0;
+	
+	while ((s[i] == d[i])) {
+		if (s[i] == '\0')
+			return 0;
+		i++;
+	}
+	return s[i] - d[i];
+}
+
 /* string length function (non-pointer) */
 int mystrlen (char *s) {
 
@@ -49,7 +63,8 @@ void display_menu () {
 	printf("\n***String based programs in C***\n");
 	printf("Press 0  to display this menu\n");
 	printf("Press 1  to copy one string to another\n");
-	printf("Press 2  to find string length\n");				
+	printf("Press 2  to find string length\n");
+	printf("Press 3  to compare strings\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -71,6 +86,7 @@ int main (void) {
 			break;
 		case 1:
 			printf("Enter a string to copy:");
+			/* scanf adds '\0' character automatically */
 			scanf("%s", buffer);
 			mystrcpy_v2(output, buffer);
 			printf("Source: %s, Dest: %s\n", buffer, output);
@@ -78,8 +94,15 @@ int main (void) {
 		case 2:
 			printf("Enter a string to find its length:");
 			scanf("%s", buffer);
-			mystrlen(buffer);
 			printf("String length for %s: %d\n", buffer, mystrlen(buffer));
+			break;
+		case 3:
+			printf("Enter 1st string:");
+			scanf("%s", buffer);
+			printf("Enter 2nd string:");
+			scanf("%s", output);
+			mystrcmp(buffer, output) == 0 ? printf("Strings are equal!\n") : \
+			printf("Strings are  not equal by %d!\n", mystrcmp(buffer, output));
 			break;
 		case -1:
 			return 0;
@@ -87,7 +110,5 @@ int main (void) {
 			printf("Invalid choice\n");
 			break;
 	}
-	printf("\n");
-	printf("\n");
 	return 0;
 }
