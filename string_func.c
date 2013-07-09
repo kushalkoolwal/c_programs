@@ -12,6 +12,16 @@
 
 #define ARRAY_SIZE 15
 
+/* string length function (non-pointer) */
+int mystrlen (char *s) {
+
+	int len=0;
+
+	while(s[len] != '\0') {
+		len++;
+	}
+	return len;
+}
 
 /* string copy function (pointer) */
 void mystrcpy_v2 (char *d, char *s) {
@@ -38,7 +48,8 @@ void display_menu () {
 
 	printf("\n***String based programs in C***\n");
 	printf("Press 0  to display this menu\n");
-	printf("Press 1  to copy one string to another\n");		
+	printf("Press 1  to copy one string to another\n");
+	printf("Press 2  to find string length\n");				
 	printf("Press -1 to quit\n");
 
 }
@@ -63,6 +74,12 @@ int main (void) {
 			scanf("%s", buffer);
 			mystrcpy_v2(output, buffer);
 			printf("Source: %s, Dest: %s\n", buffer, output);
+			break;
+		case 2:
+			printf("Enter a string to find its length:");
+			scanf("%s", buffer);
+			mystrlen(buffer);
+			printf("String length for %s: %d\n", buffer, mystrlen(buffer));
 			break;
 		case -1:
 			return 0;
