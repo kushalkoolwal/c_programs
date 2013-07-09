@@ -14,7 +14,22 @@ typedef int boolean;
 
 int mypow(int, int); /* prototype for mypower */
 
+/*  function to reverse a given interger
+	Example: 423 -> 324	
+ */
 
+int reverse_num (int num) {
+
+	int result=0, rem;
+
+	while (num != 0) {
+		rem = num % 10;
+		result = (10 * result) + rem;
+		num = num / 10;
+	}
+	return result;
+
+}
 void power_of_two (int num) {
 
 	int total, currentpow, flag;
@@ -150,6 +165,7 @@ void display_menu () {
 	printf("Press 4  to check for prime\n");
 	printf("Press 5  to sum digits of a number\n");
 	printf("Press 6  to express integer as sum of power of two\n");
+	printf("Press 7  to reverse a number\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -200,6 +216,11 @@ int main (void) {
 			printf("Enter number to express as sum of power of 2's:");
 			scanf("%d", &num);
 			power_of_two(num);
+			break;
+		case 7:
+			printf("Enter number to reverse it:");
+			scanf("%d", &num);
+			printf("Reverse of %d: %d\n", num, reverse_num(num));
 			break;
 		case -1:
 			return 0;
