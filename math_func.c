@@ -12,6 +12,26 @@ typedef int boolean;
 #define CODE 0
 
 
+/* function to calculate fibonacci series 
+   Example: Fibs(7) = 0,1,1,2,3,5,8
+   Note: Except first two numbers, all others are sum of previous two numbers
+ */
+void calc_fibonacci(num) {
+
+	int i;
+	/* define the first two number in the series to get the loop going */
+	int running, first=0, second=1;
+
+	for (i=0; i<num; i++) {
+		running = first + second;
+		first = second;
+		second = running;
+		printf("%d\t", running);
+	}
+		
+
+}
+
 int mypow(int, int); /* prototype for mypower */
 
 /*  function to reverse a given interger
@@ -221,6 +241,11 @@ int main (void) {
 			printf("Enter number to reverse it:");
 			scanf("%d", &num);
 			printf("Reverse of %d: %d\n", num, reverse_num(num));
+			break;
+		case 8:
+			printf("Enter number to calculate Fibonacci series:");
+			scanf("%d", &num);
+			calc_fibonacci(num);
 			break;
 		case -1:
 			return 0;
