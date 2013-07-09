@@ -22,14 +22,19 @@ void calc_fibonacci(num) {
 	/* define the first two number in the series to get the loop going */
 	int running, first=0, second=1;
 
+	/* for num=0, the program will not enter 'for' loop */
 	for (i=0; i<num; i++) {
-		running = first + second;
-		first = second;
-		second = running;
+		/* 'if' condition will always print '0' and '1'. */
+		if (i <= 1) {
+			running = i;
+		}
+		else {
+			running = first + second;
+			first = second;
+			second = running;
+		}
 		printf("%d\t", running);
 	}
-		
-
 }
 
 int mypow(int, int); /* prototype for mypower */
@@ -186,6 +191,7 @@ void display_menu () {
 	printf("Press 5  to sum digits of a number\n");
 	printf("Press 6  to express integer as sum of power of two\n");
 	printf("Press 7  to reverse a number\n");
+	printf("Press 8  to print Fibonacci series\n");
 	printf("Press -1 to quit\n");
 
 }
