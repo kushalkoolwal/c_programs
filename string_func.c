@@ -28,6 +28,20 @@ void swap(char l[], int x, int y) {
 
 }
 
+/* string sort function using bubble sort */
+char *sortstr (char *s) {
+
+	int i, j, n;
+
+	n = strlen(s);	
+	for (i=n-2; i >=0; i--)
+		for (j=0; j<=i; j++)
+			if (s[j] > s[j+1])
+				swap (s, j, j+1);
+
+	return s;
+}
+
 /* check for palindrome.
    a great way to check four string function that we have developed so far
  */
@@ -36,7 +50,7 @@ int check_palindrome (char *s) {
 	int len;
 	char *reverse;
 
-	len = mystrlen(s);	
+	len = mystrlen(s);
 	/*printf("len: %d, sizeof: %d\n", len, sizeof(s));*/
 	/* note we are using len+1 for the null ('\0') character.
        also we are not using sizeof operator in malloc. size of char on the 
@@ -144,6 +158,7 @@ void display_menu () {
 	printf("Press 4  to reverse a string\n");
 	printf("Press 5  to concatenate strings\n");
 	printf("Press 6  to check for plaindrome strings\n");
+	printf("Press 7  to sort a string\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -207,6 +222,11 @@ int main (void) {
 				printf("String is Palindrome\n");
 			else
 				printf("String is not Palindrome\n");			
+			break;
+		case 7:
+			printf("Enter a string (all small) to sort:");
+			scanf("%s", buffer);			
+			printf("Sorted string: %s\n", sortstr(buffer));
 			break;
 		case -1:
 			return 0;
