@@ -39,6 +39,7 @@ char *mystrcat (char *s, char *d) {
 		j++;
 		i++;
 	}
+	/* need to append null character to mark end of string
 	s[i]='\0';
 
 	return s;
