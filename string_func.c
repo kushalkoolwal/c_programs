@@ -24,6 +24,26 @@ void swap(char l[], int x, int y) {
 
 }
 
+/* concatenate string */
+char *mystrcat (char *s, char *d) {
+
+	int i, j;
+
+	i=0;
+	while(s[i] != '\0')
+		i++;
+
+	j=0;
+	while(d[j] != '\0') {
+		s[i] = d[j];
+		j++;
+		i++;
+	}
+	s[i]='\0';
+
+	return s;
+}
+
 /* reverse string in place */
 void mystrrev (char *s) {
 
@@ -91,6 +111,7 @@ void display_menu () {
 	printf("Press 2  to find string length\n");
 	printf("Press 3  to compare strings\n");
 	printf("Press 4  to reverse a string\n");
+	printf("Press 5  to concatenate a string\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -138,6 +159,14 @@ int main (void) {
 			fgets(buffer, ARRAY_SIZE, stdin);*/
 			mystrrev(buffer);
 			printf("Reversed string %s\n", buffer);
+			break;
+		case 5:
+			printf("Enter 1st string:");
+			scanf("%s", buffer);
+			printf("String length for %s: %d\n", buffer, strlen(buffer));
+			printf("Enter 2nd string:");
+			scanf("%s", output);
+			printf("Concatenate string:%s\n", mystrcat(buffer, output));
 			break;
 		case -1:
 			return 0;
