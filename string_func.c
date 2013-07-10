@@ -13,6 +13,31 @@
 #define ARRAY_SIZE 15
 
 
+/* interchange l[x] and l[y] */
+void swap(char l[], int x, int y) {
+
+	char temp;
+	
+	temp = l[x];
+	l[x] = l[y];
+	l[y]= temp;
+
+}
+
+/* reverse string in place */
+void mystrrev (char *s) {
+
+	int i, j;
+
+	i=0;
+	j = strlen(s)-1;
+	while (i < j) {
+		swap(s, i, j);	
+		i++;
+		j--;	
+	}
+}
+
 /* string compare function */
 int mystrcmp (char *s, char *d) {
 
@@ -65,6 +90,7 @@ void display_menu () {
 	printf("Press 1  to copy one string to another\n");
 	printf("Press 2  to find string length\n");
 	printf("Press 3  to compare strings\n");
+	printf("Press 4  to reverse a string\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -79,8 +105,7 @@ int main (void) {
 	display_menu ();
 	printf("Enter a command from above menu:");
 	scanf("%d", &command);
-
-	switch (command) {	
+	switch (command) {		
 		case 0:
 			display_menu();
 			break;
@@ -99,10 +124,20 @@ int main (void) {
 		case 3:
 			printf("Enter 1st string:");
 			scanf("%s", buffer);
+			printf("String length for %s: %d\n", buffer, strlen(buffer));
 			printf("Enter 2nd string:");
 			scanf("%s", output);
+			printf("String length for %s: %d\n", output, strlen(output));
 			mystrcmp(buffer, output) == 0 ? printf("Strings are equal!\n") : \
 			printf("Strings are  not equal by %d!\n", mystrcmp(buffer, output));
+			break;
+		case 4:
+			printf("Enter a string to reverse:");
+			scanf("%s", buffer);
+			/* fgets adds '\n' at the end of the string automatically
+			fgets(buffer, ARRAY_SIZE, stdin);*/
+			mystrrev(buffer);
+			printf("Reversed string %s\n", buffer);
 			break;
 		case -1:
 			return 0;
