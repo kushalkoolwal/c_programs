@@ -37,9 +37,15 @@ int check_palindrome (char *s) {
 	char *reverse;
 
 	len = mystrlen(s);	
+	/*printf("len: %d, sizeof: %d\n", len, sizeof(s));*/
+	/* note we are using len+1 for the null ('\0') character.
+       also we are not using sizeof operator in malloc. size of char on the 
+	   host is always 8.
+     */
 	reverse=(char *)malloc(len+1);
 	mystrcpy (reverse, s);
 	mystrrev (reverse);
+	/*printf("len: %d, sizeof: %d\n", mystrlen(reverse), sizeof(reverse));*/
 	if (mystrcmp (s, reverse) == 0)
 		return 0;
 	else
