@@ -12,6 +12,10 @@
 
 #define ARRAY_SIZE 15
 
+int mystrlen (char *);
+void mystrcpy (char *, char *);
+void mystrrev (char *);
+int mystrcmp (char *, char *);
 
 /* interchange l[x] and l[y] */
 void swap(char l[], int x, int y) {
@@ -22,6 +26,24 @@ void swap(char l[], int x, int y) {
 	l[x] = l[y];
 	l[y]= temp;
 
+}
+
+/* check for palindrome.
+   a great way to check four string function that we have developed so far
+ */
+int check_palindrome (char *s) {
+
+	int len;
+	char *reverse;
+
+	len = mystrlen(s);	
+	reverse=(char *)malloc(len+1);
+	mystrcpy (reverse, s);
+	mystrrev (reverse);
+	if (mystrcmp (s, reverse) == 0)
+		return 0;
+	else
+		return 1;
 }
 
 /* concatenate string */
@@ -39,7 +61,9 @@ char *mystrcat (char *s, char *d) {
 		j++;
 		i++;
 	}
-	/* need to append null character to mark end of string
+	/* need to append null character to mark end of string; otherwise it will
+	   it will be called array of characters instead of an actual string.
+     */
 	s[i]='\0';
 
 	return s;
@@ -53,9 +77,9 @@ void mystrrev (char *s) {
 	i=0;
 	j = strlen(s)-1;
 	while (i < j) {
-		swap(s, i, j);	
+		swap(s, i, j);
 		i++;
-		j--;	
+		j--;
 	}
 }
 
@@ -112,7 +136,8 @@ void display_menu () {
 	printf("Press 2  to find string length\n");
 	printf("Press 3  to compare strings\n");
 	printf("Press 4  to reverse a string\n");
-	printf("Press 5  to concatenate a string\n");
+	printf("Press 5  to concatenate strings\n");
+	printf("Press 6  to check for plaindrome strings\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -168,6 +193,14 @@ int main (void) {
 			printf("Enter 2nd string:");
 			scanf("%s", output);
 			printf("Concatenate string:%s\n", mystrcat(buffer, output));
+			break;
+		case 6:
+			printf("Enter a string to check for Palindrome:");
+			scanf("%s", buffer);
+			if (check_palindrome(buffer) == 0)
+				printf("String is Palindrome\n");
+			else
+				printf("String is not Palindrome\n");			
 			break;
 		case -1:
 			return 0;
