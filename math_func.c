@@ -16,7 +16,7 @@ typedef int boolean;
    Example: Fibs(7) = 0,1,1,2,3,5,8
    Note: Except first two numbers, all others are sum of previous two numbers
  */
-void calc_fibonacci(num) {
+void calc_fibonacci(int num) {
 
 	int i;
 	/* define the first two number in the series to get the loop going */
@@ -39,14 +39,15 @@ void calc_fibonacci(num) {
 
 int mypow(int, int); /* prototype for mypower */
 
-/*  function to reverse a given interger
-	Example: 423 -> 324	
+/*  function to reverse a given interger and also to check for palindrome
+	Example: 423 -> 324
  */
 
 int reverse_num (int num) {
 
 	int result=0, rem;
 
+	/* this is how you typically break apart an integer into individual digits*/
 	while (num != 0) {
 		rem = num % 10;
 		result = (10 * result) + rem;
@@ -98,6 +99,7 @@ int sum_digits (int num) {
 
 	int result=0, rem;
 
+	/* this is how you typically break apart an integer into individual digits*/
 	while (num != 0) {
 		rem = num % 10;
 		/*printf("Rem=%d\n", rem);*/
@@ -192,6 +194,7 @@ void display_menu () {
 	printf("Press 6  to express integer as sum of power of two\n");
 	printf("Press 7  to reverse a number\n");
 	printf("Press 8  to print Fibonacci series\n");
+	printf("Press 9  to check if number is Palindrome\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -252,6 +255,12 @@ int main (void) {
 			printf("Enter number to calculate Fibonacci series:");
 			scanf("%d", &num);
 			calc_fibonacci(num);
+			break;
+		case 9:
+			printf("Enter number to check for Palindrome:");
+			scanf("%d", &num);
+		    num == reverse_num(num) ? printf("Number is Palindrome\n") : \
+			printf("Number is not Palindrome\n");
 			break;
 		case -1:
 			return 0;
