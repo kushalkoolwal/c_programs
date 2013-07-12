@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "io.h"
 
 int readlines(char *lineptr[], int maxlines)
@@ -15,7 +16,7 @@ int readlines(char *lineptr[], int maxlines)
           return -1;
        else {
             //line[len-1] = '\0'; /* delete newline */
-            string_copy(p, line);
+            strcpy(p, line);
             lineptr[nlines++] = p;
        }
 	}
