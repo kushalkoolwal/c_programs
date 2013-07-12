@@ -20,6 +20,7 @@ int mystrstr (char *s, char *pattern) {
 
 	int i, loc, index;
 
+	/* get the first instance of match */
 	i=0;
 	while (s[i] != '\0') {
 		if (s[i] == pattern[0]) {
@@ -29,12 +30,22 @@ int mystrstr (char *s, char *pattern) {
 		i++;
 	}
 
+	/* keep looping until we get the *true* first match. 
+	   e.g. string = "Mortttttestning"; pattern = "test"
+	   we need to keep looping until we get to the 5th 't' in the string	
+	 */
+	while (s[loc+1] == pattern[0]) {
+		loc++;
+		index++;
+	}
+
 	for (i=0; pattern[i] != '\0' && s[loc] == pattern[i]; i++, loc++)
-		;	
-		if (pattern[i] == '\0')
-			return index;
-		else
-			return -1;
+		;
+
+	if (pattern[i] == '\0')
+		return index;
+	else
+		return -1;
 }
 
 int main (void) {
