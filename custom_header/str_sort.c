@@ -1,3 +1,8 @@
+/* Instructions to run the program: 
+gcc -c str_sort.c io.c
+gcc -o str_sort str_sort.o io.o
+./str_sort
+ */
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
