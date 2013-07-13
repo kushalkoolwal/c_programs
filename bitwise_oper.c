@@ -40,7 +40,7 @@ void check_odd_even (int num) {
    to get individual bits we use the left shift operator (<<). E.g:
    1 << 15 = 1000000000000000
    5 (101) & 1000000000000000 = 0
-   5 (101) & 0100000000000000 = 0		
+   5 (101) & 0100000000000000 = 0
 */
 
 void showbits (int num) {
@@ -51,9 +51,7 @@ void showbits (int num) {
 
 	printf("Binary representation of %d:", num);
 	for (i=intsize-1; i>=0; i--) {
-		mask = 1 << i;
-		result = num & mask;
-		
+		result = num & (1 << mask);		
 		result == 0 ? printf("0") : printf("1");
 	}
 	printf("\n");
