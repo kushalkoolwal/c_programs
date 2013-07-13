@@ -11,10 +11,41 @@ typedef int boolean;
 /* define exit code */
 #define CODE 0
 
+#define ARRAY_SIZE 100
+
+/* convert decimal to hex and store results in an array */
+void dec_to_hex (int num) {
+
+	int i, j;
+	int result[ARRAY_SIZE];
+
+	i=0;
+	while (num != 0) {
+		result[i++] = num % 16;
+		num = num / 16;
+	}
+
+	printf("Hex:");
+	if (i == 0) {
+		printf("%d", i);
+	}
+
+	else {
+		for (j=i-1; j>=0; j--) {
+			/* to print a,b,c,d,e,f use %x */
+			if (result[j] >= 10)
+				printf("%x", result[j]);
+			else
+				printf("%d", result[j]);
+		}
+	}
+	printf("\n");
+}
+
 /* convert decimal to binary and store bits in an array */
 void dec_to_bin (int num) {
 
-	int i,j, result[32];
+	int i,j, result[ARRAY_SIZE];
 
 	i = 0;
 	while (num != 0) {
@@ -217,6 +248,7 @@ void display_menu () {
 	printf("Press 8  to print Fibonacci series\n");
 	printf("Press 9  to check if number is Palindrome\n");
 	printf("Press 10  to convert decimal to binary\n");
+	printf("Press 11  to convert decimal to hex\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -288,6 +320,11 @@ int main (void) {
 			printf("Enter number to convert to binary:");
 			scanf("%d", &num);
 			dec_to_bin(num);
+			break;
+		case 11:
+			printf("Enter number to convert to hex:");
+			scanf("%d", &num);
+			dec_to_hex(num);
 			break;
 		case -1:
 			return 0;
