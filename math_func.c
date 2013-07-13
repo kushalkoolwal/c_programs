@@ -23,9 +23,13 @@ void dec_to_bin (int num) {
 		num = num / 2;
 	}
 
-	printf("Binary number:");
-	for (j=i-1; j>=0; j--)
-		printf("%d", result[j]);
+	printf("Binary:");
+	if (i == 0) 
+		printf("%d", i);
+	else
+		for (j=i-1; j>=0; j--)
+			printf("%d", result[j]);
+
 	printf("\n");
 }
 
