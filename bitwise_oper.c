@@ -13,12 +13,13 @@
 #define BITS_IN_BYTES	8
 
 /* List of bitwise operators:
-	&    bitwise AND
-	¦    bitwise inclusive OR
-	^    bitwise exclusive OR
+	&    bitwise AND				- check status of bit
+	¦    bitwise inclusive OR       - to set (ON) a particular bit
+	^    bitwise exclusive OR (XOR) - toggle a bit ON or OFF
+	~    one’s complement (unary)   - to clear (OFF) a particular bit with &
 	<<   left shift
 	>>   right shift
-	~    one’s complement (unary)
+
 */
 
 /* function to check odd or even using Bitwise AND (&). LSB of every odd
@@ -51,7 +52,7 @@ void showbits (int num) {
 
 	printf("Binary representation of %d:", num);
 	for (i=intsize-1; i>=0; i--) {
-		result = num & (1 << mask);		
+		result = num & (1 << i);		
 		result == 0 ? printf("0") : printf("1");
 	}
 	printf("\n");
