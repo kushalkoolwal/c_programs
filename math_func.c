@@ -49,8 +49,7 @@ void dec_to_bin (int num) {
 
 	i = 0;
 	while (num != 0) {
-		result[i] = num % 2;
-		i++;
+		result[i++] = num % 2;
 		num = num / 2;
 	}
 
