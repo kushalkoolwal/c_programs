@@ -11,6 +11,23 @@ typedef int boolean;
 /* define exit code */
 #define CODE 0
 
+/* convert decimal to binary and store bits in an array */
+void dec_to_bin (int num) {
+
+	int i,j, result[32];
+
+	i = 0;
+	while (num != 0) {
+		result[i] = num % 2;
+		i++;
+		num = num / 2;
+	}
+
+	printf("Binary number:");
+	for (j=i-1; j>=0; j--)
+		printf("%d", result[j]);
+	printf("\n");
+}
 
 /* function to calculate fibonacci series 
    Example: Fibs(7) = 0,1,1,2,3,5,8
@@ -195,6 +212,7 @@ void display_menu () {
 	printf("Press 7  to reverse a number\n");
 	printf("Press 8  to print Fibonacci series\n");
 	printf("Press 9  to check if number is Palindrome\n");
+	printf("Press 10  to convert decimal to binary\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -261,6 +279,11 @@ int main (void) {
 			scanf("%d", &num);
 		    num == reverse_num(num) ? printf("Number is Palindrome\n") : \
 			printf("Number is not Palindrome\n");
+			break;
+		case 10:
+			printf("Enter number to convert to binary:");
+			scanf("%d", &num);
+			dec_to_bin(num);
 			break;
 		case -1:
 			return 0;
