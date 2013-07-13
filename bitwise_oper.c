@@ -17,11 +17,20 @@
 	¦    bitwise inclusive OR       - to set (ON) a particular bit
 	^    bitwise exclusive OR (XOR) - toggle a bit ON or OFF
 	~    one’s complement (unary)   - to clear (OFF) a particular bit with &
-	<<   left shift
-	>>   right shift
+	<<   left shift					- fills bits with 0
+	>>   right shift				- fills bits with 0 for unsigned
 
 */
 
+
+/* function to swap integers using  */
+void swap_bitwise(int *x, int *y) {
+
+	*x = *x ^ *y;
+	*y = *x ^ *y;
+	*x = *x ^ *y;
+
+}
 /* function to check odd or even using Bitwise AND (&). LSB of every odd
    number is 1, therefore odd number & 1 = 1, number is odd otherise even.
    note: '0' is even number
@@ -64,7 +73,8 @@ void display_menu () {
 	printf("\n***Bitwise Programs in C***\n");
 	printf("Press 0  to display this menu\n");
 	printf("Press 1  for showbits function\n");		
-	printf("Press 2  to check odd or even\n");		
+	printf("Press 2  to check odd or even\n");
+	printf("Press 3  to swap numbers\n");				
 	printf("Press -1 to quit\n");
 
 }
@@ -72,7 +82,7 @@ void display_menu () {
 
 int main (void) {
 
-	int command, num;
+	int command, num, x, y;
 
 	display_menu();
 	printf("Enter a command from above menu:");
@@ -91,6 +101,14 @@ int main (void) {
 			printf("Check number is even or odd:");
 			scanf("%d", &num);
 			check_odd_even(num);
+			break;
+		case 3:			
+			printf("Enter number in x:");
+			scanf("%d", &x);
+			printf("Enter number in y:");
+			scanf("%d", &y);
+			swap_bitwise(&x, &y);
+			printf("x=%d, y=%d\n", x, y);
 			break;
 		case -1:
 			return 0;
