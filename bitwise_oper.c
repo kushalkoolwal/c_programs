@@ -2,6 +2,7 @@
 #include<string.h>
 #include<stdlib.h>
 #include<ctype.h>
+#include<math.h>
 
 /* define boolean types */
 #define TRUE 1
@@ -22,6 +23,20 @@
 
 */
 
+
+/* function to multiple numbers without * operator 
+   num  << 1 = num times 2
+   num  << 2 = num times 4
+   num  << 3 = num times 8
+   basically the shift number is raised to the power of 2 i.e. pow(2, shift)
+ */
+int mult_bitwise (int num, int mult) {
+
+	num = num << mult;
+
+	return num;
+
+}
 
 /* function to swap integers using  */
 void swap_bitwise(int *x, int *y) {
@@ -72,9 +87,10 @@ void display_menu () {
 
 	printf("\n***Bitwise Programs in C***\n");
 	printf("Press 0  to display this menu\n");
-	printf("Press 1  for showbits function\n");		
+	printf("Press 1  for showbits function\n");
 	printf("Press 2  to check odd or even\n");
-	printf("Press 3  to swap numbers\n");				
+	printf("Press 3  to swap numbers\n");
+	printf("Press 4  to multiply numbers\n");			
 	printf("Press -1 to quit\n");
 
 }
@@ -82,7 +98,7 @@ void display_menu () {
 
 int main (void) {
 
-	int command, num, x, y;
+	int command, num, x, y, z;
 
 	display_menu();
 	printf("Enter a command from above menu:");
@@ -109,6 +125,14 @@ int main (void) {
 			scanf("%d", &y);
 			swap_bitwise(&x, &y);
 			printf("x=%d, y=%d\n", x, y);
+			break;
+		case 4:			
+			printf("Enter number:");
+			scanf("%d", &x);
+			printf("Enter left shit number (2^y):");
+			scanf("%d", &y);
+			z=pow(2,y);
+			printf("%d times %d = %d\n", x, z, mult_bitwise(x, y));
 			break;
 		case -1:
 			return 0;
