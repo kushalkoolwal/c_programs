@@ -90,7 +90,8 @@ void display_menu () {
 	printf("Press 1  for showbits function\n");
 	printf("Press 2  to check odd or even\n");
 	printf("Press 3  to swap numbers\n");
-	printf("Press 4  to multiply numbers\n");			
+	printf("Press 4  to multiply numbers\n");
+	printf("Press 5  to detect endianness of architecture\n");						
 	printf("Press -1 to quit\n");
 
 }
