@@ -11,6 +11,8 @@
 /* define exit code */
 #define CODE 0
 
+typedef int boolean;
+
 #define BITS_IN_BYTES	8
 
 /* List of bitwise operators:
@@ -23,6 +25,15 @@
 
 */
 
+/* function to check endianness 
+    
+ */
+
+int check_endianness () {
+
+	int num=1
+
+}
 
 /* function to multiple numbers without * operator 
    num  << 1 = num times 2
