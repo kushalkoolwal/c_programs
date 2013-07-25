@@ -18,6 +18,22 @@ void mystrcpy (char *, char *);
 void mystrrev (char *);
 int mystrcmp (char *, char *);
 
+/* converts string to integer (atoi) with sign extension */
+int myatoiv2 (char s[]) {
+
+	int i, n, sign;
+
+	for (i = 0; isspace(s[i]); i++);
+		/*printf("i=%d\n", i);*/
+	
+	sign = s[i] == '-' ? -1 : 1;
+	if (s[i] == '+' || s[i] == '-')
+		i++;
+    for (n = 0; isdigit(s[i]); i++)
+        n = 10 * n + (s[i] - '0');
+    return (sign*n);
+}
+
 /* converts string to integer (atoi) */
 int myatoi (char s[]) {
 
@@ -293,7 +309,7 @@ int main (void) {
 			printf("Enter a string of digits:");
 			scanf("%s", buffer);
 			/*fgets(buffer, ARRAY_SIZE, stdin);*/
-			printf("String->Interger: %d\n", myatoi(buffer));
+			printf("String->Interger: %d\n", myatoiv2(buffer));
 			break;
 		case -1:
 			return 0;
