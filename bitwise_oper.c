@@ -11,9 +11,10 @@
 /* define exit code */
 #define CODE 0
 
-typedef int boolean;
-
+/* number of bits in a byte */
 #define BITS_IN_BYTES	8
+
+typedef int boolean;
 
 /* List of bitwise operators:
 	&    bitwise AND				- check status of bit
@@ -70,7 +71,7 @@ void swap_bitwise(int *x, int *y) {
 */
 void check_odd_even (int num) {
 
-	if (num & 1 == 1)
+	if ((num & 1) == 1)
 		printf("Odd\n");
 	else
 		printf("Even\n");
@@ -88,7 +89,7 @@ void check_odd_even (int num) {
 
 void showbits (int num) {
 
-	int i, intsize, result, mask;
+	int i, intsize, result;
 
 	intsize = sizeof(int)*BITS_IN_BYTES ;
 
