@@ -21,11 +21,8 @@ int mystrcmp (char *, char *);
 /* converts string to integer (atoi) with sign extension */
 int myatoiv2 (char s[]) {
 
-	int i, n, sign;
+	int i=0, n, sign;
 
-	for (i = 0; isspace(s[i]); i++);
-		/*printf("i=%d\n", i);*/
-	
 	sign = s[i] == '-' ? -1 : 1;
 	if (s[i] == '+' || s[i] == '-')
 		i++;
