@@ -26,11 +26,23 @@ typedef int boolean;
 
 */
 
+int num_ones_in_binary (int num) {
+
+	int num_ones=0;
+
+	while (num!=0) {
+		if ((num & 1) == 1) {
+			num_ones++;
+		}
+		num = num >> 1;
+	}
+	return num_ones;
+}
+
 /*  function to check endianness
 	0 =  Big Endian
 	1 =  Little Endian  (x86)
  */
-
 void check_endianness () {
 
 	int num=1;
@@ -110,7 +122,8 @@ void display_menu () {
 	printf("Press 2  to check odd or even\n");
 	printf("Press 3  to swap numbers\n");
 	printf("Press 4  to multiply numbers\n");
-	printf("Press 5  to detect endianness of architecture\n");						
+	printf("Press 5  to detect endianness of architecture\n");
+	printf("Press 6  to count number of 1's\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -151,11 +164,17 @@ int main (void) {
 			scanf("%d", &x);
 			printf("Enter left shit number (2^y):");
 			scanf("%d", &y);
+			/* remember to compile prgram with "gcc -lm file.c" for pow  */
 			z=pow(2,y);
 			printf("%d times %d = %d\n", x, z, mult_bitwise(x, y));
 			break;
 		case 5:
 			check_endianness ();
+			break;
+		case 6:
+			printf("Enter a number to calculate 1's:");
+			scanf("%d", &num);			
+			printf("Number of 1's in the binary: %d\n", num_ones_in_binary(num));
 			break;
 		case -1:
 			return 0;
