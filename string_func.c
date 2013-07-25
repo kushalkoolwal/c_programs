@@ -35,7 +35,7 @@ char *sortstr (char *s) {
 	int i, j, n;
 
 	n = strlen(s);	
-	for (i=n-2; i >=0; i--)
+	for (i=n-2; i>=0; i--)
 		for (j=0; j<=i; j++)
 			if (s[j] > s[j+1])
 				swap (s, j, j+1);
@@ -54,6 +54,11 @@ boolean mystrstr (char *s, char *t) {
                	return TRUE;         
 	}
     return FALSE;
+}
+
+int check_anagrams (char *s, char *t) {
+
+
 }
 
 /* check for palindrome.
@@ -166,14 +171,15 @@ void display_menu () {
 
 	printf("\n***String based programs in C***\n");
 	printf("Press 0  to display this menu\n");
-	printf("Press 1  to copy one string to another\n");
-	printf("Press 2  to find string length\n");
+	printf("Press 1  to find string length\n");
+	printf("Press 2  to copy one string to another\n");
 	printf("Press 3  to compare strings\n");
 	printf("Press 4  to reverse a string\n");
 	printf("Press 5  to concatenate strings\n");
-	printf("Press 6  to check for plaindrome strings\n");
-	printf("Press 7  to sort a string\n");
-	printf("Press 8  to check for substring\n");
+	printf("Press 6  to sort a string\n");
+	printf("Press 7  to check for substring\n");
+	printf("Press 8  to check for plaindrome strings\n");
+	printf("Press 9  to check for anagrams\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -183,7 +189,7 @@ int main (void) {
 	int command;
 
 	char buffer[ARRAY_SIZE];
-	char output[ARRAY_SIZE];
+	char buffer1[ARRAY_SIZE];
 
 	display_menu ();
 	printf("Enter a command from above menu:");
@@ -193,26 +199,26 @@ int main (void) {
 			display_menu();
 			break;
 		case 1:
-			printf("Enter a string to copy:");
-			/* scanf adds '\0' character automatically */
-			scanf("%s", buffer);
-			mystrcpy_v2(output, buffer);
-			printf("Source: %s, Dest: %s\n", buffer, output);
-			break;
-		case 2:
 			printf("Enter a string to find its length:");
 			scanf("%s", buffer);
 			printf("String length for %s: %d\n", buffer, mystrlen(buffer));
 			break;
+		case 2:
+			printf("Enter a string to copy:");
+			/* scanf adds '\0' character automatically */
+			scanf("%s", buffer);
+			mystrcpy_v2(buffer1, buffer);
+			printf("Source: %s, Dest: %s\n", buffer, buffer1);
+			break;
 		case 3:
 			printf("Enter 1st string:");
 			scanf("%s", buffer);
-			printf("String length for %s: %d\n", buffer, strlen(buffer));
+			/*printf("String length for %s: %d\n", buffer, strlen(buffer));*/
 			printf("Enter 2nd string:");
-			scanf("%s", output);
-			printf("String length for %s: %d\n", output, strlen(output));
-			mystrcmp(buffer, output) == 0 ? printf("Strings are equal!\n") : \
-			printf("Strings are  not equal by %d!\n", mystrcmp(buffer, output));
+			scanf("%s", buffer1);
+			/*printf("String length for %s: %d\n", output, strlen(output));*/
+			mystrcmp(buffer, buffer1) == 0 ? printf("Strings are equal!\n") : \
+			printf("Strings are  not equal by %d!\n", mystrcmp(buffer, buffer1));
 			break;
 		case 4:
 			printf("Enter a string to reverse:");
@@ -225,12 +231,27 @@ int main (void) {
 		case 5:
 			printf("Enter 1st string:");
 			scanf("%s", buffer);
-			printf("String length for %s: %d\n", buffer, strlen(buffer));
+			/*printf("String length for %s: %d\n", buffer, strlen(buffer));*/
 			printf("Enter 2nd string:");
-			scanf("%s", output);
-			printf("Concatenate string:%s\n", mystrcat(buffer, output));
+			scanf("%s", buffer1);
+			printf("Concatenate string:%s\n", mystrcat(buffer, buffer1));
 			break;
 		case 6:
+			printf("Enter a string (all small) to sort:");
+			scanf("%s", buffer);			
+			printf("Sorted string: %s\n", sortstr(buffer));
+			break;
+		case 7:
+			printf("Enter base string:");
+			scanf("%s", buffer);
+			printf("Enter substring:");
+			scanf("%s", buffer1);
+			if (mystrstr (buffer, buffer1))
+				printf("Is a substring\n");
+			else
+				printf("Not a substring\n");
+			break;
+		case 8:
 			printf("Enter a string to check for Palindrome:");
 			scanf("%s", buffer);
 			if (check_palindrome(buffer) == 0)
@@ -238,20 +259,15 @@ int main (void) {
 			else
 				printf("String is not Palindrome\n");			
 			break;
-		case 7:
-			printf("Enter a string (all small) to sort:");
-			scanf("%s", buffer);			
-			printf("Sorted string: %s\n", sortstr(buffer));
-			break;
-		case 8:
-			printf("Enter base string:");
+		case 9:
+			printf("Enter 1st string:");
 			scanf("%s", buffer);
-			printf("Enter substring:");
-			scanf("%s", output);
-			if (mystrstr (buffer, output))
-				printf("Is a substring\n");
+			printf("Enter 2nd string:");
+			scanf("%s", buffer1);
+			if (check_anagrams (buffer, buffer1))
+				printf("Strings are anagrams\n");
 			else
-				printf("Not a substring\n");
+				printf("Strings are not anagrams\n");
 			break;
 		case -1:
 			return 0;
