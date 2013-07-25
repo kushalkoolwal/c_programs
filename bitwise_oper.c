@@ -25,13 +25,20 @@ typedef int boolean;
 
 */
 
-/* function to check endianness 
-    
+/*  function to check endianness
+	0 =  Big Endian
+	1 =  Little Endian  (x86)
  */
 
-int check_endianness () {
+void check_endianness () {
 
-	int num=1
+	int num=1;
+
+	char *p;
+
+	p = (char *)&num;
+
+	printf("%c\n", *p+48);
 
 }
 
@@ -145,6 +152,9 @@ int main (void) {
 			scanf("%d", &y);
 			z=pow(2,y);
 			printf("%d times %d = %d\n", x, z, mult_bitwise(x, y));
+			break;
+		case 5:
+			check_endianness ();
 			break;
 		case -1:
 			return 0;
