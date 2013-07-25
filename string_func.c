@@ -7,6 +7,7 @@
 #define TRUE 1
 #define FALSE 0
 
+typedef int boolean;
 /* define exit code */
 #define CODE 0
 
@@ -40,6 +41,19 @@ char *sortstr (char *s) {
 				swap (s, j, j+1);
 
 	return s;
+}
+
+/* check whether 't' is a substring of 's' or not */
+boolean mystrstr (char *s, char *t) {
+
+	int i, j, k;
+
+	for (i = 0; s[i]; i++) {
+		for (j = i, k = 0; t[k] && s[j] == t[k]; j++, k++);
+       		if (k > 0 && !t[k])
+               	return TRUE;         
+	}
+    return FALSE;
 }
 
 /* check for palindrome.
@@ -159,6 +173,7 @@ void display_menu () {
 	printf("Press 5  to concatenate strings\n");
 	printf("Press 6  to check for plaindrome strings\n");
 	printf("Press 7  to sort a string\n");
+	printf("Press 8  to check for substring\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -227,6 +242,16 @@ int main (void) {
 			printf("Enter a string (all small) to sort:");
 			scanf("%s", buffer);			
 			printf("Sorted string: %s\n", sortstr(buffer));
+			break;
+		case 8:
+			printf("Enter base string:");
+			scanf("%s", buffer);
+			printf("Enter substring:");
+			scanf("%s", output);
+			if (mystrstr (buffer, output))
+				printf("Is a substring\n");
+			else
+				printf("Not a substring\n");
 			break;
 		case -1:
 			return 0;
