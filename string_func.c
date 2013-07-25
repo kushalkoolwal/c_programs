@@ -18,6 +18,18 @@ void mystrcpy (char *, char *);
 void mystrrev (char *);
 int mystrcmp (char *, char *);
 
+/* converts string to integer (atoi) */
+int myatoi (char s[]) {
+
+    int i, n;
+    n = 0;
+
+	/* s[i] >= '0' && s[i] <= '9' <==> isspace(s[i]) */
+    for (i = 0; s[i] >= '0' && s[i] <= '9'; i++)
+        n = 10 * n + (s[i] - '0');
+    return n;
+}
+
 /* interchange l[x] and l[y] */
 void swap(char l[], int x, int y) {
 
@@ -187,6 +199,7 @@ void display_menu () {
 	printf("Press 7  to check for substring\n");
 	printf("Press 8  to check for plaindrome strings\n");
 	printf("Press 9  to check for anagrams\n");
+	printf("Press 10 for atoi function\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -275,6 +288,12 @@ int main (void) {
 				printf("Strings are anagrams\n");
 			else
 				printf("Strings are not anagrams\n");
+			break;
+		case 10:
+			printf("Enter a string of digits:");
+			scanf("%s", buffer);
+			/*fgets(buffer, ARRAY_SIZE, stdin);*/
+			printf("String->Interger: %d\n", myatoi(buffer));
 			break;
 		case -1:
 			return 0;
