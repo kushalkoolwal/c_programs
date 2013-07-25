@@ -56,9 +56,16 @@ boolean mystrstr (char *s, char *t) {
     return FALSE;
 }
 
-int check_anagrams (char *s, char *t) {
+/* function to check for anagrams */
+boolean check_anagrams (char *s, char *t) {
 
+	sortstr(s);
+    sortstr(t);
 
+	if (strcmp(s, t) == 0)
+		return TRUE;
+	else
+		return FALSE;
 }
 
 /* check for palindrome.
