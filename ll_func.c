@@ -20,7 +20,7 @@ typedef struct node {
 
 node_t *head, *new_node, *temp, *temp2;
 
-void delete_list () {
+void delete_node () {
 
 	int num, found=FALSE;
 	temp = head;
@@ -135,7 +135,7 @@ int main (void) {
 			display_list();
 			break;
 		case 3:
-			delete_list();
+			delete_node();
 			break;
 		case -1:
 			return 0;
