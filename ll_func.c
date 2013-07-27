@@ -18,7 +18,7 @@ typedef struct node {
 	struct node *next; /* next is a pointer to a structure of type node_t */
 } node_t;
 
-node_t *head, *new_node, *temp, *temp2, *dup;
+node_t *head, *new_node, *temp, *temp2, *dup, *node;
 
 void remove_duplicates() {
 
@@ -108,16 +108,24 @@ void display_list() {
 	}
 }
 
-void append_to_list(int val) {
+node_t *create_node (int val) {
 
-	new_node = (node_t *)malloc(sizeof(node_t));
-	if (new_node == NULL) {
+	node = (node_t *)malloc(sizeof(node_t));
+	if (node == NULL) {
 		printf("Error creating a new node.\n");
 		exit (CODE);
 	}
-	new_node->data = val;
-	new_node->next = NULL;
+	node->data = val;
+	node->next = NULL;
+	return node;
+	
+}
 
+void append_to_list(int val) {	
+
+	/* allocate a node */
+	new_node = create_node(val);
+	
 	if (head == NULL)
 		/* first node in the list */
 		head = new_node;
