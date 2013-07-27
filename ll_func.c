@@ -45,7 +45,7 @@ void remove_duplicates() {
 	}
 }
 
-void delete_node (int val) {
+void delete_node (int val, boolean only_one_ptr) {
 
 	int found=FALSE;
 
@@ -72,7 +72,7 @@ void delete_node (int val) {
 			temp->next=NULL;
 			free(temp);
 		}
-		else {
+		else if (!only_one_ptr) {
 			/* node can be anywhere including the end of list */
 			temp2 = head;
 
@@ -83,6 +83,11 @@ void delete_node (int val) {
 			temp2->next=temp->next;
 			temp->next=NULL;
 			free(temp);		
+		}
+		/* delete node with only one pointer, cannot use for last node */
+		else {
+			temp->data = temp->next->data;
+			temp->next = temp->next->next;			
 		}
 	}
 	else {
@@ -154,7 +159,8 @@ void display_menu () {
 	printf("Press 2 to prepend elements\n");
 	printf("Press 3 to display list\n");
 	printf("Press 4 to delete node\n");
-	printf("Press 5 to remove duplicate nodes\n");
+	printf("Press 5 to delete node (only one ptr)\n");
+	printf("Press 6 to remove duplicate nodes\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -188,11 +194,16 @@ int main (void) {
 			display_list();
 			break;
 		case 4:
-			printf("Enter the node to be deleted:");
+			printf("Enter data to be deleted:");
 			scanf("%d", &num);
-			delete_node(num);
+			delete_node(num, FALSE);
 			break;
 		case 5:
+			printf("Enter data to be deleted:");
+			scanf("%d", &num);
+			delete_node(num, TRUE);
+			break;
+		case 6:
 			remove_duplicates();
 			break;
 		case -1:
