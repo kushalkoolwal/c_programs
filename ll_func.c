@@ -45,9 +45,10 @@ void remove_duplicates() {
 	}
 }
 
-void delete_node () {
+void delete_node (int val) {
 
-	int num, found=FALSE;
+	int found=FALSE;
+
 	temp = head;
 
 	/* check if list is empty */
@@ -55,13 +56,10 @@ void delete_node () {
 		printf("List is empty\n");
 		return;
 	}
-	printf("Enter the node to be deleted:");
-	scanf("%d", &num);
-
 	/*keep tranversing until number is found */
 	while (found==FALSE && temp!=NULL) {
-		if (temp->data == num)
-			found=TRUE;
+		if (temp->data == val)
+			found=TRUE;			
 		else
 			temp=temp->next;		
 	}
@@ -88,7 +86,7 @@ void delete_node () {
 		}
 	}
 	else {
-	 printf("\nNot not found");
+	 printf("Not not found\n");
 	}
 }
 
@@ -110,6 +108,7 @@ void display_list() {
 	}
 }
 
+/* function to allocate a new node */
 node_t *create_node (int val) {
 
 	node = (node_t *)malloc(sizeof(node_t));
@@ -145,7 +144,6 @@ void add_to_list(int val, boolean append) {
 		new_node->next=head;
 		head=new_node;
 	}
-
 }
 
 void display_menu () {
@@ -190,7 +188,9 @@ int main (void) {
 			display_list();
 			break;
 		case 4:
-			delete_node();
+			printf("Enter the node to be deleted:");
+			scanf("%d", &num);
+			delete_node(num);
 			break;
 		case 5:
 			remove_duplicates();
