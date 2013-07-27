@@ -49,40 +49,45 @@ void delete_node () {
 	temp = head;
 
 	/* check if list is empty */
-	if (temp == NULL)	
+	if (temp == NULL) {
 		printf("List is empty\n");
-	else {	
-		printf("Enter the node to be deleted:");
-		scanf("%d", &num);
+		return;
+	}
+	printf("Enter the node to be deleted:");
+	scanf("%d", &num);
 
-		/*keep tranversing until number is found */
-		while ((found==FALSE) && (temp!=NULL)) {
-			if (temp->data == num)
-				found=TRUE;
-			else
-				temp=temp->next;		
-		}
-		
-		if (found) {			
-			if (temp == head) {
-				/* if node is head node itself */		
-				head=head->next;
-				temp->next=NULL;
-				free(temp);
-			}
-			else {
-				/* node can be anywhere including the end of list */
-				temp2 = head;
-				while(temp2->next != temp)
-					temp2=temp2->next;
-				temp2->next=temp->next;
-				temp->next=NULL;
-				free(temp);		
-			}
-		}
+	/*keep tranversing until number is found */
+	while (found==FALSE && temp!=NULL) {
+		if (temp->data == num)
+			found=TRUE;
 		else
-			printf("\nNot not found");	
-	}	
+			temp=temp->next;		
+	}
+		
+	if (found) {
+		/* if node is head node itself */		
+		if (temp == head) {			
+			/* perform deletion */
+			head=head->next;
+			temp->next=NULL;
+			free(temp);
+		}
+		else {
+			/* node can be anywhere including the end of list */
+			temp2 = head;
+
+			while(temp2->next != temp)
+				temp2=temp2->next;
+
+			/* perform deletion */
+			temp2->next=temp->next;
+			temp->next=NULL;
+			free(temp);		
+		}
+	}
+	else {
+	 printf("\nNot not found");
+	}
 }
 
 void display_list() {
@@ -94,6 +99,7 @@ void display_list() {
 		printf("List is empty\n");
 	else {
 		printf("\n");
+		
 		while(temp != NULL) {
 			printf("%d\t",temp->data);
 			temp=temp->next;
@@ -102,15 +108,14 @@ void display_list() {
 	}
 }
 
-void create_list() {
+void append_to_list(int val) {
 
 	new_node = (node_t *)malloc(sizeof(node_t));
 	if (new_node == NULL) {
 		printf("Error creating a new node.\n");
 		exit (CODE);
 	}
-	printf("\nEnter data:");
-	scanf("%d", &new_node->data);
+	new_node->data = val;
 	new_node->next = NULL;
 
 	if (head == NULL)
@@ -130,17 +135,18 @@ void display_menu () {
 
 	printf("Linked List Implementation\n");
 	printf("Press 0 to display this menu\n");	
-	printf("Press 1 to create list\n");
-	printf("Press 2 to display list\n");
-	printf("Press 3 to delete node\n");
-	printf("Press 4 to remove duplicate nodes\n");
+	printf("Press 1 to append elements\n");
+	printf("Press 2 to prepend elements\n");
+	printf("Press 3 to display list\n");
+	printf("Press 4 to delete node\n");
+	printf("Press 5 to remove duplicate nodes\n");
 	printf("Press -1 to quit\n");
 
 }
 
 int main (void) {
 
-	int command;
+	int command, num;
 	head = NULL;
 	display_menu();
 
@@ -154,15 +160,20 @@ int main (void) {
 			display_menu();
 			break;
 		case 1:
-			create_list();
+			printf("\nEnter data:");
+			scanf("%d", &num);
+			append_to_list(num);
 			break;
 		case 2:
-			display_list();
+			/*create_list();*/
 			break;
 		case 3:
-			delete_node();
+			display_list();
 			break;
 		case 4:
+			delete_node();
+			break;
+		case 5:
 			remove_duplicates();
 			break;
 		case -1:
