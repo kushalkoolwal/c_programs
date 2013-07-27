@@ -12,6 +12,8 @@
 /* define exit code */
 #define CODE 0
 
+typedef int boolean;
+
 /* node structure */
 typedef struct node {
 	int data;
@@ -121,22 +123,29 @@ node_t *create_node (int val) {
 	
 }
 
-void append_to_list(int val) {	
+void add_to_list(int val, boolean append) {	
 
 	/* allocate a node */
 	new_node = create_node(val);
 	
-	if (head == NULL)
-		/* first node in the list */
+	/* first node in the list */
+	if (head == NULL) {	
 		head = new_node;
-	else {
-		/* append node at the end of list */
+	}
+	/* append node at the end of list */
+	else if(append) {		
 		temp = head;
 		/* temp->next locates the last node */
 		while(temp->next != NULL)
 			temp=temp->next;
 		temp->next=new_node;
 	}
+	/* prepend node at the beginning of list */
+	else {
+		new_node->next=head;
+		head=new_node;
+	}
+
 }
 
 void display_menu () {
@@ -170,10 +179,12 @@ int main (void) {
 		case 1:
 			printf("\nEnter data:");
 			scanf("%d", &num);
-			append_to_list(num);
+			add_to_list(num, TRUE);
 			break;
 		case 2:
-			/*create_list();*/
+			printf("\nEnter data:");
+			scanf("%d", &num);
+			add_to_list(num, FALSE);
 			break;
 		case 3:
 			display_list();
