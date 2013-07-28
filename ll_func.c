@@ -1,4 +1,4 @@
-/*
+/* Linear Linked List Program
  *
  */
 #include<stdio.h>
@@ -20,17 +20,47 @@ typedef struct node {
 	struct node *next; /* next is a pointer to a structure of type node_t */
 } node_t;
 
-node_t *head, *new_node, *temp, *temp2, *dup, *node;
+node_t *head, *new_node, *temp, *temp2, *temp3, *dup, *node;
 
-void remove_duplicates() {
-
-	temp = head;
+/* check if list is empty */
+boolean check_empty_list (node_t *temp) {
 
 	if (temp == NULL) {
 		printf("List is empty\n");
-		return;
+		return FALSE;
 	}
+	else {
+		return TRUE;
+	}
+}
 
+void reverse_list() {
+	
+	if (!check_empty_list(head))
+		return;
+
+	temp = head;
+	temp2 = temp->next;
+	temp3 = temp2->next;
+	temp->next = NULL;
+	
+	do {
+		temp2->next = temp;
+		temp = temp2;
+		temp2 = temp3;
+		temp3 = temp3->next;
+	} while (temp3 != NULL);
+
+	temp2->next=temp;
+	head = temp2;
+}
+
+void remove_duplicates() {
+
+	if (!check_empty_list(head))
+		return;
+
+	temp = head;
 	while (temp != NULL) {
 		temp2 = temp;
 		while (temp2 != NULL && temp2->next != NULL) {
@@ -49,13 +79,7 @@ void delete_node (int val, boolean only_one_ptr) {
 
 	int found=FALSE;
 
-	temp = head;
-
-	/* check if list is empty */
-	if (temp == NULL) {
-		printf("List is empty\n");
-		return;
-	}
+	temp = head;	
 	/*keep tranversing until number is found */
 	while (found==FALSE && temp!=NULL) {
 		if (temp->data == val)
@@ -97,19 +121,13 @@ void delete_node (int val, boolean only_one_ptr) {
 
 void display_list() {
 
-	temp = head;
+	if (!check_empty_list(head))
+		return;
 
-	/* check if list is empty */
-	if (temp == NULL)		
-		printf("List is empty\n");
-	else {
-		printf("\n");
-		
-		while(temp != NULL) {
-			printf("%d\t",temp->data);
-			temp=temp->next;
-		}
-		printf("\n");
+	temp = head;		
+	while(temp != NULL) {
+		printf("%d\t",temp->data);
+		temp=temp->next;
 	}
 }
 
@@ -123,8 +141,7 @@ node_t *create_node (int val) {
 	}
 	node->data = val;
 	node->next = NULL;
-	return node;
-	
+	return node;	
 }
 
 void add_to_list(int val, boolean append) {	
@@ -161,6 +178,7 @@ void display_menu () {
 	printf("Press 4 to delete node\n");
 	printf("Press 5 to delete node (only one ptr)\n");
 	printf("Press 6 to remove duplicate nodes\n");
+	printf("Press 7 to reverse the list\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -191,7 +209,9 @@ int main (void) {
 			add_to_list(num, FALSE);
 			break;
 		case 3:
+			printf("\n");	
 			display_list();
+			printf("\n");
 			break;
 		case 4:
 			printf("Enter data to be deleted:");
@@ -205,6 +225,9 @@ int main (void) {
 			break;
 		case 6:
 			remove_duplicates();
+			break;
+		case 7:
+			reverse_list();
 			break;
 		case -1:
 			return 0;
