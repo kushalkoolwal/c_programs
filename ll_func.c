@@ -1,6 +1,4 @@
-/* Linear Linked List Program
- *
- */
+/* Linear Linked List Program */
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -20,8 +18,6 @@ typedef struct node {
 	struct node *next; /* next is a pointer to a structure of type node_t */
 } node_t;
 
-node_t *head, *new_node, *temp, *temp2, *temp3, *dup, *node;
-
 /* check if list is empty */
 boolean check_empty_list (node_t *node) {
 
@@ -39,13 +35,14 @@ boolean check_empty_list (node_t *node) {
    bubble sort implementation where smaller data is pushed (bubbled) towards
    the beginning.	
  */
-void sort_list() {
+void sort_list(node_t *head) {
 
 	int tmp_data, done=1;
 
 	if (!check_empty_list(head))
 		return;
 
+	node_t *temp;
 	/* keep looing until no swap occurs */
 	while (done) {
 		done = 0;
@@ -63,11 +60,12 @@ void sort_list() {
 	}
 }
 
-void reverse_list() {
+void reverse_list(node_t *head) {
 	
 	if (!check_empty_list(head))
 		return;
 
+	node_t *temp, *temp2, *temp3;
 	temp = head;
 	temp2 = temp->next;
 	temp3 = temp2->next;
@@ -84,10 +82,12 @@ void reverse_list() {
 	head = temp2;
 }
 
-void remove_duplicates() {
+void remove_duplicates(node_t *head) {
 
 	if (!check_empty_list(head))
 		return;
+
+	node_t *temp, *temp2, *dup;
 
 	temp = head;
 	while (temp != NULL) {
@@ -104,11 +104,13 @@ void remove_duplicates() {
 	}
 }
 
-void delete_node (int val, boolean only_one_ptr) {
+void delete_node (node_t *head, int val, boolean only_one_ptr) {
 
 	int found=FALSE;
 
-	temp = head;	
+	node_t *temp, *temp2;
+
+	temp = head;
 	/*keep tranversing until number is found */
 	while (found==FALSE && temp!=NULL) {
 		if (temp->data == val)
@@ -148,12 +150,12 @@ void delete_node (int val, boolean only_one_ptr) {
 	}
 }
 
-void display_list() {
+void display_list(node_t *head) {
 
 	if (!check_empty_list(head))
 		return;
 
-	temp = head;		
+	node_t *temp = head;
 	while(temp != NULL) {
 		printf("%d\t",temp->data);
 		temp=temp->next;
@@ -163,7 +165,7 @@ void display_list() {
 /* function to allocate a new node */
 node_t *create_node (int val) {
 
-	node = (node_t *)malloc(sizeof(node_t));
+	node_t *node = (node_t *)malloc(sizeof(node_t));
 	if (node == NULL) {
 		printf("Error creating a new node.\n");
 		exit (CODE);
@@ -173,7 +175,9 @@ node_t *create_node (int val) {
 	return node;	
 }
 
-void add_to_list(int val, boolean append) {	
+node_t *add_to_list(node_t *head, int val, boolean append) {	
+
+	node_t *new_node, *temp;
 
 	/* allocate a node */
 	new_node = create_node(val);
@@ -195,6 +199,7 @@ void add_to_list(int val, boolean append) {
 		new_node->next=head;
 		head=new_node;
 	}
+	return head;
 }
 
 void display_menu () {
@@ -216,9 +221,7 @@ void display_menu () {
 int main (void) {
 
 	int command, num;
-	head = NULL;
-	node_t *first, *second, *result;
-	first=second=result=NULL;
+	node_t *head = NULL;
 
 	display_menu();
 
@@ -234,36 +237,36 @@ int main (void) {
 		case 1:
 			printf("\nEnter data:");
 			scanf("%d", &num);
-			add_to_list(num, TRUE);
+			head = add_to_list(head, num, TRUE);
 			break;
 		case 2:
 			printf("\nEnter data:");
 			scanf("%d", &num);
-			add_to_list(num, FALSE);
+			head = add_to_list(head, num, FALSE);
 			break;
 		case 3:
 			printf("\n");	
-			display_list();
+			display_list(head);
 			printf("\n");
 			break;
 		case 4:
 			printf("Enter data to be deleted:");
 			scanf("%d", &num);
-			delete_node(num, FALSE);
+			delete_node(head, num, FALSE);
 			break;
 		case 5:
 			printf("Enter data to be deleted:");
 			scanf("%d", &num);
-			delete_node(num, TRUE);
+			delete_node(head, num, TRUE);
 			break;
 		case 6:
-			remove_duplicates();
+			remove_duplicates(head);
 			break;
 		case 7:
-			reverse_list();
+			reverse_list(head);
 			break;
 		case 8:
-			sort_list();
+			sort_list(head);
 			break;	
 		case -1:
 			return 0;
@@ -273,6 +276,5 @@ int main (void) {
 			break;
 		}
 	}
-
 	return 0;
 }
