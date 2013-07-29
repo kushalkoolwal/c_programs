@@ -150,16 +150,16 @@ void delete_node (node_t *head, int val, boolean only_one_ptr) {
 	}
 }
 
-void display_list(node_t *head) {
+void display_list(node_t *current) {
 
-	if (!check_empty_list(head))
+	if (!check_empty_list(current))
 		return;
-
-	node_t *temp = head;
-	while(temp != NULL) {
-		printf("%d\t",temp->data);
-		temp=temp->next;
+	
+	while(current != NULL) {
+		printf("%d--->",current->data);
+		current=current->next;
 	}
+	printf("NULL\n");
 }
 
 /* function to allocate a new node */
@@ -202,6 +202,71 @@ node_t *add_to_list(node_t *head, int val, boolean append) {
 	return head;
 }
 
+void push(node_t **head, int val) {
+
+	node_t *new_node;
+
+	/* allocate a node */
+	new_node = create_node(val);
+
+	new_node->next = *head;
+	*head = new_node;
+
+}
+
+/* adds two list and creates a new list */
+node_t *add_two_lists (node_t *first, node_t *second) {
+
+	int carry=0, total;
+	node_t *result, *new_node, *prev;
+
+	result=new_node=prev=NULL;	
+
+	while (first != NULL || second != NULL) {
+
+		/* add data of first node with data of second node and then add carry */	
+		total = carry + (first ? first->data : 0) + (second ? second->data: 0);
+		
+		/* if carry, store 1 else store 0
+		   e.g. first->data=8 and second->data=5
+           8+5 > 10, therefore 1=carry and 3=sum
+         */
+		carry = total >= 10 ? 1 : 0;
+		
+		/* update the total
+		   based on above example, we need just '3' in our total and not 13
+           because we will carry the '1' in 13 to our next calculation
+		   13 % 10 = 3	 	
+         */
+		total = total % 10;
+		
+		/* create a new node for the resulting value (3) */
+		new_node = create_node(total);
+
+		/* first node in the list */
+		if (result == NULL)
+			result = new_node;
+		else
+			prev->next=new_node;
+
+		prev = new_node;			
+
+		/* increment to next node of the two lists */
+		if (first != NULL)
+			first=first->next;
+
+		if (second != NULL)
+			second=second->next;			
+	}
+
+	/* we need to take care of the last carry and create a new node for it */
+	if (carry>0)
+		new_node->next=create_node(carry);
+
+	return result;	
+}
+
+
 void display_menu () {
 
 	printf("Linked List Implementation\n");
@@ -214,6 +279,7 @@ void display_menu () {
 	printf("Press 6 to remove duplicate nodes\n");
 	printf("Press 7 to reverse the list\n");
 	printf("Press 8 to sort the list\n");
+	printf("Press 9 to add two lists\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -222,6 +288,9 @@ int main (void) {
 
 	int command, num;
 	node_t *head = NULL;
+
+	node_t *first, *second, *result;
+	first=second=result=NULL;
 
 	display_menu();
 
@@ -267,6 +336,21 @@ int main (void) {
 			break;
 		case 8:
 			sort_list(head);
+			break;
+		case 9:
+			/* create list 5->6->3 = 365*/
+			push(&first, 3);
+			push(&first, 6);
+			push(&first, 5);
+			display_list(first);
+			/* create list 8->4->2 = 248*/
+			push(&second, 2);
+			push(&second, 4);
+			push(&second, 8);
+			display_list(second);
+			result=add_two_lists(first, second);
+			printf("Resultant List is:");
+			display_list(result);
 			break;	
 		case -1:
 			return 0;
