@@ -215,12 +215,12 @@ void push(node_t **head, int val) {
 }
 
 /* adds two list and creates a new list */
-node_t *add_two_lists (node_t *first, node_t *second) {
+node_t *add_two_lists (node_t *first, node_t *second, node_t *result) {
 
 	int carry=0, total;
-	node_t *result, *new_node, *prev;
+	node_t *new_node, *prev;
 
-	result=new_node=prev=NULL;	
+	new_node=prev=NULL;
 
 	while (first != NULL || second != NULL) {
 
@@ -348,7 +348,7 @@ int main (void) {
 			push(&second, 4);
 			push(&second, 8);
 			display_list(second);
-			result=add_two_lists(first, second);
+			result=add_two_lists(first, second, result);
 			printf("Resultant List is:");
 			display_list(result);
 			break;	
