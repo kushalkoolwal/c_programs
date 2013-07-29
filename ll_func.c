@@ -218,9 +218,9 @@ void push(node_t **head, int val) {
 node_t *add_two_lists (node_t *first, node_t *second, node_t *result) {
 
 	int carry=0, total;
-	node_t *new_node, *prev;
+	node_t *new_node, *temp;
 
-	new_node=prev=NULL;
+	new_node=temp=NULL;
 
 	while (first != NULL || second != NULL) {
 
@@ -247,9 +247,10 @@ node_t *add_two_lists (node_t *first, node_t *second, node_t *result) {
 		if (result == NULL)
 			result = new_node;
 		else
-			prev->next=new_node;
+			temp->next=new_node;
 
-		prev = new_node;			
+		/* move pointer to the newly created node for the next update */
+		temp = new_node;
 
 		/* increment to next node of the two lists */
 		if (first != NULL)
