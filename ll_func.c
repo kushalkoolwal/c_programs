@@ -23,14 +23,43 @@ typedef struct node {
 node_t *head, *new_node, *temp, *temp2, *temp3, *dup, *node;
 
 /* check if list is empty */
-boolean check_empty_list (node_t *temp) {
+boolean check_empty_list (node_t *node) {
 
-	if (temp == NULL) {
+	if (node == NULL) {
 		printf("List is empty\n");
 		return FALSE;
 	}
 	else {
 		return TRUE;
+	}
+}
+
+/* function to sort list using bubble sort
+   here we are pushing the larger data towards the end unlike the default
+   bubble sort implementation where smaller data is pushed (bubbled) towards
+   the beginning.	
+ */
+void sort_list() {
+
+	int tmp_data, done=1;
+
+	if (!check_empty_list(head))
+		return;
+
+	/* keep looing until no swap occurs */
+	while (done) {
+		done = 0;
+		temp = head;		
+		while (temp->next != NULL) {
+			if (temp->data > temp->next->data) {
+				/* swap the data */
+				tmp_data = temp->data;
+				temp->data = temp->next->data;
+				temp->next->data = tmp_data;
+				done = 1;		/* rest the done flag */
+			}
+			temp = temp->next;
+		}
 	}
 }
 
@@ -179,6 +208,7 @@ void display_menu () {
 	printf("Press 5 to delete node (only one ptr)\n");
 	printf("Press 6 to remove duplicate nodes\n");
 	printf("Press 7 to reverse the list\n");
+	printf("Press 8 to sort the list\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -187,6 +217,9 @@ int main (void) {
 
 	int command, num;
 	head = NULL;
+	node_t *first, *second, *result;
+	first=second=result=NULL;
+
 	display_menu();
 
 	while(TRUE) {
@@ -229,6 +262,9 @@ int main (void) {
 		case 7:
 			reverse_list();
 			break;
+		case 8:
+			sort_list();
+			break;	
 		case -1:
 			return 0;
 		default:		
