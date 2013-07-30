@@ -18,6 +18,9 @@ typedef struct node {
 	struct node *next; /* next is a pointer to a structure of type node_t */
 } node_t;
 
+enum type_of_ll {LINEAR=0, CIRCULAR=1};
+enum insert_loc {PREPEND=0, APPEND=1};
+
 /* check if list is empty */
 boolean check_empty_list (node_t *node) {
 
@@ -150,16 +153,51 @@ void delete_node (node_t *head, int val, boolean only_one_ptr) {
 	}
 }
 
-void display_list(node_t *current) {
+/* returns '1' if circular else returns '0' */
+boolean check_circular (node_t *head) {
 
-	if (!check_empty_list(current))
-		return;
-	
-	while(current != NULL) {
-		printf("%d--->",current->data);
-		current=current->next;
+	node_t *slow, *fast;
+	slow = head;
+	fast = head->next;
+
+	while (slow != NULL && fast != NULL) {
+
+		/* loop is detected */
+		if (slow == fast)
+			return TRUE;
+		slow=slow->next;
+		
+		if (fast->next != NULL)
+			fast=fast->next->next;
+		else
+			fast=fast->next;
 	}
-	printf("NULL\n");
+	return FALSE;
+}
+
+void display_list(node_t *head, enum type_of_ll type) {
+
+	if (!check_empty_list(head))
+		return;
+
+	node_t *current = head;
+
+	if (type == LINEAR) {	
+		while(current != NULL) {
+			printf("%d--->",current->data);
+			current=current->next;
+		}
+		printf("NULL\n");
+	}
+
+	if (type == CIRCULAR) {
+		do {		
+			printf("%d--->",current->data);
+			current=current->next;
+		} while(current != head);
+		printf("%d", head->data);
+	}
+
 }
 
 /* function to allocate a new node */
@@ -175,7 +213,8 @@ node_t *create_node (int val) {
 	return node;	
 }
 
-node_t *add_to_list(node_t *head, int val, boolean append) {	
+node_t *add_to_list (node_t *head, int val, \
+enum insert_loc loc, enum type_of_ll type) {
 
 	node_t *new_node, *temp;
 
@@ -184,14 +223,20 @@ node_t *add_to_list(node_t *head, int val, boolean append) {
 	
 	/* first node in the list */
 	if (head == NULL) {	
-		head = new_node;
+		head = new_node;		
 	}
 	/* append node at the end of list */
-	else if(append) {		
+	else if(loc == APPEND) {
 		temp = head;
 		/* temp->next locates the last node */
-		while(temp->next != NULL)
-			temp=temp->next;
+		if (type == LINEAR) {
+			while(temp->next != NULL)
+				temp=temp->next;
+		}
+		else if (type == CIRCULAR) {
+			while(temp->next != head)
+				temp=temp->next;
+		}
 		temp->next=new_node;
 	}
 	/* prepend node at the beginning of list */
@@ -199,6 +244,10 @@ node_t *add_to_list(node_t *head, int val, boolean append) {
 		new_node->next=head;
 		head=new_node;
 	}
+
+	if (type == CIRCULAR)
+		new_node->next=head;
+
 	return head;
 }
 
@@ -281,6 +330,9 @@ void display_menu () {
 	printf("Press 7 to reverse the list\n");
 	printf("Press 8 to sort the list\n");
 	printf("Press 9 to add two lists\n");
+	printf("Press 10 to create circular linked list\n");
+	printf("Press 11 to display circular linked list\n");
+	printf("Press 12 to detect if list is circular or not\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -307,16 +359,16 @@ int main (void) {
 		case 1:
 			printf("\nEnter data:");
 			scanf("%d", &num);
-			head = add_to_list(head, num, TRUE);
+			head = add_to_list(head, num, APPEND, LINEAR);
 			break;
 		case 2:
 			printf("\nEnter data:");
 			scanf("%d", &num);
-			head = add_to_list(head, num, FALSE);
+			head = add_to_list(head, num, PREPEND, LINEAR);
 			break;
 		case 3:
 			printf("\n");	
-			display_list(head);
+			display_list(head, LINEAR);
 			printf("\n");
 			break;
 		case 4:
@@ -343,16 +395,31 @@ int main (void) {
 			push(&first, 3);
 			push(&first, 6);
 			push(&first, 5);
-			display_list(first);
+			display_list(first, LINEAR);
 			/* create list 8->4->2 = 248*/
 			push(&second, 2);
 			push(&second, 4);
 			push(&second, 8);
-			display_list(second);
+			display_list(second, LINEAR);
 			result=add_two_lists(first, second, result);
 			printf("Resultant List is:");
-			display_list(result);
+			display_list(result, LINEAR);
 			break;	
+		case 10:
+			printf("\nEnter data:");
+			scanf("%d", &num);			
+			head = add_to_list(head, num, APPEND, CIRCULAR);
+			break;
+		case 11:
+			printf("\n");	
+			display_list(head, CIRCULAR);
+			printf("\n");
+			break;
+		case 12:
+			if (check_circular(head))
+				printf("List is Circular\n");
+			else
+				printf("List is not Circular\n");
 		case -1:
 			return 0;
 		default:		
