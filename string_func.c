@@ -18,6 +18,39 @@ void mystrcpy (char *, char *);
 void mystrrev (char *);
 int mystrcmp (char *, char *);
 
+
+/* interchange l[x] and l[y] */
+void swap(char l[], int x, int y) {
+
+	char temp;
+	
+	temp = l[x];
+	l[x] = l[y];
+	l[y]= temp;
+
+}
+
+/* print permutations of string of given length 'n'
+   there are n! permutations
+   start = starting index of string
+   end = ending index of string
+ */
+void permute_string (char s[], int start, int end) {
+
+	int i;
+
+	if (start == end) {
+		printf("%s\n", s);
+	}
+	else {
+		for (i=start; i<=end; i++) {		
+			swap(s, start, i);
+			permute_string(s, start+1, end);
+			swap(s, start, i); /* backtracking */
+		}
+	}
+}
+
 /* converts string to integer (atoi) with sign extension */
 int myatoiv2 (char s[]) {
 
@@ -41,17 +74,6 @@ int myatoi (char s[]) {
     for (i = 0; s[i] >= '0' && s[i] <= '9'; i++)
         n = 10 * n + (s[i] - '0');
     return n;
-}
-
-/* interchange l[x] and l[y] */
-void swap(char l[], int x, int y) {
-
-	char temp;
-	
-	temp = l[x];
-	l[x] = l[y];
-	l[y]= temp;
-
 }
 
 /* string sort function using bubble sort */
@@ -213,13 +235,14 @@ void display_menu () {
 	printf("Press 8  to check for plaindrome strings\n");
 	printf("Press 9  to check for anagrams\n");
 	printf("Press 10 for atoi function\n");
+	printf("Press 11 for permutations of strings\n");
 	printf("Press -1 to quit\n");
 
 }
 
 int main (void) {
 
-	int command;
+	int command, len;
 
 	char buffer[ARRAY_SIZE];
 	char buffer1[ARRAY_SIZE];
@@ -307,6 +330,13 @@ int main (void) {
 			scanf("%s", buffer);
 			/*fgets(buffer, ARRAY_SIZE, stdin);*/
 			printf("String->Interger: %d\n", myatoiv2(buffer));
+			break;
+		case 11:
+			printf("Enter a string:");
+			scanf("%s", buffer);
+			/*fgets(buffer, ARRAY_SIZE, stdin);*/
+			len=(strlen(buffer)-1);
+			permute_string(buffer, 0, len);
 			break;
 		case -1:
 			return 0;
