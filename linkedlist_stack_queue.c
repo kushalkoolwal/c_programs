@@ -1,4 +1,4 @@
-/*
+/* Linked List as Stack and Queue
  *
  */
 #include<stdio.h>
@@ -18,20 +18,22 @@ typedef struct node {
 	struct node *next; /* next is a pointer to a structure of type node_t */
 } node_t;
 
-node_t *front, *new_node, *rear, *temp;
+node_t *head, *new_node, *temp, *front, *rear;
 
-void dequeue () {
+void display_stack () {
 
-	temp = front;
+	temp = head;
 
 	/* check if list is empty */
-	if (temp == NULL)	
-		printf("Queue is empty\n");
+	if (temp == NULL)		
+		printf("Stack is empty\n");
 	else {
-		front=front->next;
-		temp->next=NULL;
-		printf("Element %d deleted...\n", temp->data);
-		free(temp);
+		printf("\n");
+		while(temp != NULL) {
+			printf("%d\t", temp->data);
+			temp=temp->next;
+		}
+		printf("\n");
 	}
 }
 
@@ -52,8 +54,22 @@ void display_queue () {
 	}
 }
 
-void enqueue() {
+void dequeue () {
 
+	temp = front;
+
+	/* check if list is empty */
+	if (temp == NULL)	
+		printf("Queue is empty\n");
+	else {
+		front=front->next;
+		temp->next=NULL;
+		printf("Element %d deleted...\n", temp->data);
+		free(temp);
+	}
+}
+
+void enqueue() {
 	/* create a node */	
 	new_node = (node_t *)malloc(sizeof(node_t));
 	if (new_node == NULL) {
@@ -76,13 +92,46 @@ void enqueue() {
 	}
 }
 
+void pop () {
+
+	temp = head;
+
+	/* check if list is empty */
+	if (temp == NULL)	
+		printf("Queue is empty\n");
+	else {
+		head=head->next;
+		temp->next=NULL;
+		printf("Element %d deleted...\n", temp->data);
+		free(temp);
+	}
+}
+
+void push () {
+
+	/* create a node */	
+	new_node = (node_t *)malloc(sizeof(node_t));
+	if (new_node == NULL) {
+		printf("Error creating a new node.\n");
+		exit (CODE);
+	}
+	printf("\nEnter data:");
+	scanf("%d", &new_node->data);
+	new_node->next=head;
+	head=new_node;
+
+}
+
 void display_menu () {
 
 	printf("Linked List Implementation\n");
 	printf("Press 0 to display this menu\n");	
-	printf("Press 1 to add (enqueue) an element to Q\n");
-	printf("Press 2 to display Q\n");
-	printf("Press 3 to delete (dequeue) an element from Q\n");
+	printf("Press 1 to push an element to stack\n");
+	printf("Press 2 to display stack\n");
+	printf("Press 3 to delete an element from stack\n");
+	printf("Press 4 to add (enqueue) an element to Q\n");
+	printf("Press 5 to display Q\n");
+	printf("Press 6 to delete (dequeue) an element from Q\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -90,8 +139,7 @@ void display_menu () {
 int main (void) {
 
 	int command;
-	front = NULL;
-	rear = NULL;
+	head = NULL;
 	display_menu();
 
 	while(TRUE) {
@@ -104,13 +152,22 @@ int main (void) {
 			display_menu();
 			break;
 		case 1:
-			add_queue();
+			push();
 			break;
 		case 2:
-			display_queue();
+			display_stack();
 			break;
 		case 3:
-			delete_queue();
+			pop();
+			break;
+		case 4:
+			enqueue();
+			break;
+		case 5:
+			display_queue();
+			break;
+		case 6:
+			dequeue();
 			break;
 		case -1:
 			return 0;
@@ -121,6 +178,5 @@ int main (void) {
 			break;
 		}
 	}
-
 	return 0;
 }
