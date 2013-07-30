@@ -128,10 +128,10 @@ void display_menu () {
 	printf("Press 0 to display this menu\n");	
 	printf("Press 1 to push an element to stack\n");
 	printf("Press 2 to display stack\n");
-	printf("Press 3 to delete an element from stack\n");
+	printf("Press 3 to pop an element from stack\n");
 	printf("Press 4 to add (enqueue) an element to Q\n");
 	printf("Press 5 to display Q\n");
-	printf("Press 6 to delete (dequeue) an element from Q\n");
+	printf("Press 6 to remove (dequeue) an element from Q\n");
 	printf("Press -1 to quit\n");
 
 }
