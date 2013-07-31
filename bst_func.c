@@ -138,7 +138,7 @@ node_t *delete_node(node_t *current, int key) {
 	else {
 		if (current->left && current->right) {
 		 /* a) find a minimum value in the right subtree;
-			b) replace value of the node to be removed with found minimum. Now, right 				subtree contains a duplicate!
+			b) replace value of the node to be removed with found minimum. Now, 			   right subtree contains a duplicate!
 			c) apply remove to the right subtree to remove a duplicate.
 		  */
 			temp=find_min_bst(current->right);
@@ -167,6 +167,30 @@ void inorder (node_t *current) {
 		printf("%d\t", current->data);
 		inorder(current->right);
 	}	
+}
+
+void print_given_level(node_t *root, int level) {
+
+	if (root == NULL) {
+		return;
+	}
+	else if (level == 1) {
+		printf("%d\t", root->data);
+	}
+	else if (level > 1) {
+		print_given_level(root->left, level -1);
+		print_given_level(root->right, level -1);
+	}
+}
+
+void bfs_traversal (node_t *root) {
+
+	int height, i;
+
+	height = max_depth_bst (root);
+
+	for (i=1; i<=height; i++)
+		print_given_level(root, i);
 }
 
 void display_bst (int t) {
@@ -278,7 +302,7 @@ int main (void) {
 			display_menu();
 			break;
 		case 5:
-			delete_bst(root);
+			bfs_traversal(root);
 			display_menu();
 			break;
 		case 6:
