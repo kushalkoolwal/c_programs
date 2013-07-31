@@ -227,12 +227,13 @@ void display_menu () {
 	printf("Press 2  to display BST in-order\n");
 	printf("Press 3  to search for an element\n");
 	printf("Press 4  to delete an element from BST\n");
-	printf("Press 5  to delete entire BST\n");
+	printf("Press 5  to BFS traversal\n");		
 	printf("Press 6  to find height (max depth) of BST\n");
 	printf("Press 7  to find size of BST\n");
 	printf("Press 8  to mirror a BST\n");
 	printf("Press 9  to find min. node in BST\n");
 	printf("Press 10 to find max. node in BST\n");
+	printf("Press 11  to delete entire BST\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -300,6 +301,10 @@ int main (void) {
 		case 10:
 			temp=find_max_bst(root);
 			printf("Max. node is %d\n", temp->data);
+			display_menu();
+			break;
+		case 11:
+			delete_bst(root);
 			display_menu();
 			break;
 		case -1:
