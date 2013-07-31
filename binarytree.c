@@ -1,0 +1,314 @@
+/*
+ *
+ */
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+/* define boolean types */
+#define TRUE 1
+#define FALSE 0
+
+/* define exit code */
+#define CODE 0
+
+/* node structure */
+typedef struct node {
+	int data;
+	struct node *left;  
+	struct node *right;
+} node_t;
+
+node_t *root, *new_node, *current, *parent, *temp;
+
+node_t * find_min_bst(node_t *current) {
+
+	if (current == NULL) {	
+		printf("Tree does not exists\n");
+		return NULL;
+	}
+	else {
+		if(current->left)
+			return find_min_bst((current->left));
+		else
+			return current;
+	}
+}
+
+node_t * find_max_bst(node_t *current) {
+
+	if (current == NULL) {	
+		printf("Tree does not exists\n");
+		return NULL;
+	}
+	else {
+		if(current->right)
+			return find_max_bst((current->right));
+		else
+			return current;
+	}
+}
+
+node_t *search_bst (node_t *current, int key) {
+
+	/* check if list is empty */
+	if (current == NULL) {	
+		printf("Tree does not exists\n");
+		return NULL;
+	}
+	else {	
+		while ((current!=NULL)) {
+			if (current->data == key) {
+				return current;
+			}
+			if (current->data > key)
+				current=current->left;
+			if (current->data < key)
+				current=current->right;
+		}
+	}	
+}
+
+
+void mirror_bst(node_t *current) {
+
+	if (current==NULL)
+		return;
+	else {	
+		mirror_bst(current->left);
+		mirror_bst(current->right);
+
+		/*swap the operation */
+		temp = current->left;
+		current->left=current->right;
+		current->right=temp;
+	}
+}
+
+/* Count the number of nodes in the tree.*/
+int size_bst(node_t *current) {
+
+	if (current == NULL)
+		return 0;
+	else
+		return(size_bst(current->left) + 1 + size_bst(current->right));	
+}
+
+/*  the number of nodes along the longest path from the root node down to the farthest leaf node.*/
+int max_depth_bst(node_t *current) {
+
+	int ldepth, rdepth;
+
+	if (current == NULL)
+    	return 0;
+   	else {
+		/* compute the depth of each subtree */
+       	int ldepth = max_depth_bst(current->left);
+       	int rdepth = max_depth_bst(current->right);
+ 
+       	/* use the max. of left-subtree & right-subtree */
+       	if (ldepth > rdepth)
+        	return(ldepth+1);
+       	else
+			return(rdepth+1);
+   	}
+}
+
+void delete_bst(node_t *current) {
+
+	if (current != NULL) {
+		delete_bst(current->left);
+		delete_bst(current->right);		
+		free(current);
+	}
+}
+
+node_t *delete_node(node_t *current, int key) {
+
+	enum position {LEFT=1, RIGHT=2, ROOT=3};
+	enum position pos;
+	int found=FALSE;
+
+	if (current == NULL)
+		printf("Tree does not exists\n");
+	else if (key < current->data)
+		current->left=delete_node(current->left, key);
+	else if (key > current->data)
+		current->right=delete_node(current->right, key);
+	else {
+		if (current->left && current->right) {
+		 /* a) find a minimum value in the right subtree;
+			b) replace value of the node to be removed with found minimum. Now, right 				subtree contains a duplicate!
+			c) apply remove to the right subtree to remove a duplicate.
+		  */
+			temp=find_min_bst(current->right);
+			current->data = temp->data;
+			current->right = delete_node(current->right, temp->data);	
+		}
+		/* 	If there is only one or zero children;
+			remove it and connect its parent to its child
+		 */
+		else {
+			temp = current;
+			if(current->left == NULL)
+				current = current->right;
+			else if(current->right ==NULL)
+				current = current->left;
+			free(temp);
+		}
+	}
+	return current;
+}
+
+void inorder (node_t *current) {
+	
+	if (current != NULL) {
+		inorder(current->left);
+		printf("%d\t", current->data);
+		inorder(current->right);
+	}	
+}
+
+void display_bst (int t) {
+	
+	/* check if list is empty */
+	if (root == NULL)
+		printf("Tree does not exists\n");
+	else {	
+		if (t == 2)
+			inorder(root);		
+	}
+	printf("\n\n");
+}
+
+void insert (node_t *root, node_t *new_node) {
+	
+	/* check if new node's data > root node */
+	if((root->right==NULL) && (new_node->data > root->data))
+		root->right=new_node;
+	else {
+		if ((root->right != NULL) && (new_node->data > root->data))
+			insert (root->right, new_node);
+	}
+
+	/* check if new node's data < root node */
+	if((root->left==NULL) && (new_node->data < root->data))
+		root->left=new_node;
+	else {
+		if ((root->left != NULL) && (new_node->data < root->data))
+			insert (root->left, new_node);
+	}
+}
+
+void create_bst () {
+
+	new_node = (node_t *)malloc(sizeof(node_t));
+	if (new_node == NULL) {
+		printf("Error creating a new node.\n");
+		exit (CODE);
+	}
+	printf("\nEnter data:");
+	scanf("%d", &new_node->data);
+	new_node->left=NULL;
+	new_node->right=NULL;
+
+	/* check if tree is empty */
+	if (root == NULL)
+		root = new_node;
+	else
+		insert(root, new_node);
+}
+
+void display_menu () {
+
+	printf("Linked List Implementation\n");
+	printf("Press 0  to display this menu\n");	
+	printf("Press 1  to create BST\n");
+	printf("Press 2  to display BST in-order\n");
+	printf("Press 3  to search for an element\n");
+	printf("Press 4  to delete an element from BST\n");
+	printf("Press 5  to delete entire BST\n");
+	printf("Press 6  to find height (max depth) of BST\n");
+	printf("Press 7  to find size of BST\n");
+	printf("Press 8  to mirror a BST\n");
+	printf("Press 9  to find min. node in BST\n");
+	printf("Press 10 to find max. node in BST\n");
+	printf("Press -1 to quit\n");
+
+}
+
+int main (void) {
+
+	int command, node_val;
+	root = NULL;
+	display_menu();
+
+	while(TRUE) {
+		printf("Enter a command from above menu:");
+		scanf("%d", &command);
+
+		switch (command) {
+
+		case 0:
+			display_menu();
+			break;
+		case 1:
+			create_bst();
+			display_menu();
+			break;
+		case 2:
+			display_bst(2);
+			display_menu();
+			break;
+		case 3:
+			printf("Enter the node to be searched:");
+			scanf("%d", &node_val);
+			temp=search_bst(root, node_val);
+			if(temp)
+				printf("\nNode %d found!\n", temp->data);
+			else
+				printf("\nNode not found!\n");
+			display_menu();
+			break;
+		case 4:
+			printf("Enter the node to be deleted:");
+			scanf("%d", &node_val);
+			delete_node(root, node_val);
+			display_menu();
+			break;
+		case 5:
+			delete_bst(root);
+			display_menu();
+			break;
+		case 6:
+			printf("Height of tree is %d\n", max_depth_bst(root));
+			display_menu();
+			break;
+		case 7:
+			printf("Size of tree is %d\n", size_bst(root));
+			display_menu();
+			break;
+		case 8:
+			mirror_bst(root);
+			display_menu();
+			break;
+		case 9:
+			temp=find_min_bst(root);
+			printf("Min. node is %d\n", temp->data);
+			display_menu();
+			break;
+		case 10:
+			temp=find_max_bst(root);
+			printf("Max. node is %d\n", temp->data);
+			display_menu();
+			break;
+		case -1:
+			return 0;
+		default:		
+			printf("Please enter a valid choice\n");
+			display_menu();
+			break;
+		}
+	}
+	return 0;
+}
