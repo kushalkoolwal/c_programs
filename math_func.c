@@ -13,6 +13,8 @@ typedef int boolean;
 
 #define ARRAY_SIZE 100
 
+int mypow(int, int); /* prototype for mypower */
+
 /* convert decimal to hex and store results in an array */
 void dec_to_hex (int num) {
 
@@ -88,25 +90,6 @@ void calc_fibonacci(int num) {
 	}
 }
 
-int mypow(int, int); /* prototype for mypower */
-
-/*  function to reverse a given interger and also to check for palindrome
-	Example: 423 -> 324
- */
-
-int reverse_num (int num) {
-
-	int result=0, rem;
-
-	/* this is how you typically break apart an integer into individual digits*/
-	while (num != 0) {
-		rem = num % 10;
-		result = (10 * result) + rem;
-		num = num / 10;
-	}
-	return result;
-
-}
 void power_of_two (int num) {
 
 	int total, currentpow, flag;
@@ -141,11 +124,27 @@ void power_of_two (int num) {
 	printf("\n");
 }
 
+/*  function to reverse a given interger and also to check for palindrome
+	Example: 423 -> 324
+ */
+int reverse_num (int num) {
+
+	int result=0, rem;
+
+	/* this is how you typically break apart an integer into individual digits*/
+	while (num != 0) {
+		rem = num % 10;
+		result = (10 * result) + rem;
+		num = num / 10;
+	}
+	return result;
+
+}
+
 /* we use "%" operator to extract the digits from the number.
    Example: Sum of 47 = 4+7 = 11
    Note: (4 % 10) = 4, (4 / 10) = 0;	
  */
-
 int sum_digits (int num) {
 
 	int result=0, rem;
