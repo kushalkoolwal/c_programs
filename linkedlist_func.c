@@ -107,6 +107,22 @@ void remove_duplicates(node_t *head) {
 	}
 }
 
+void delete_last_node (node_t *head) {
+
+	node_t *current, *prev;
+
+	/* set up two pointers, prev is one step behind current */
+	current=head->next;
+	prev = head;
+	
+	while (current->next != NULL) {
+		prev = current;
+		current = current->next;
+	}
+	prev->next = NULL;	
+	free(current);
+} 
+
 void delete_node (node_t *head, int val, boolean only_one_ptr) {
 
 	int found=FALSE;
@@ -326,13 +342,15 @@ void display_menu () {
 	printf("Press 3 to display list\n");
 	printf("Press 4 to delete node\n");
 	printf("Press 5 to delete node (only one ptr)\n");
-	printf("Press 6 to remove duplicate nodes\n");
-	printf("Press 7 to reverse the list\n");
-	printf("Press 8 to sort the list\n");
-	printf("Press 9 to add two lists\n");
-	printf("Press 10 to create circular linked list\n");
-	printf("Press 11 to display circular linked list\n");
-	printf("Press 12 to detect if list is circular or not\n");
+	printf("Press 6 to delete last node\n");
+	printf("Press 7 to delete a node by position\n");
+	printf("Press 8 to remove duplicate nodes\n");
+	printf("Press 9 to reverse the list\n");
+	printf("Press 10 to sort the list\n");
+	printf("Press 11 to add two lists\n");
+	printf("Press 12 to create circular linked list\n");
+	printf("Press 13 to display circular linked list\n");
+	printf("Press 14 to detect if list is circular or not\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -382,15 +400,23 @@ int main (void) {
 			delete_node(head, num, TRUE);
 			break;
 		case 6:
-			remove_duplicates(head);
+			delete_last_node(head);
 			break;
 		case 7:
-			reverse_list(head);
+			/*printf("Enter node number to be deleted:");
+			scanf("%d", &num);
+			delete_node_by_pos(head, num);*/
 			break;
 		case 8:
-			sort_list(head);
+			remove_duplicates(head);
 			break;
 		case 9:
+			reverse_list(head);
+			break;
+		case 10:
+			sort_list(head);
+			break;
+		case 11:
 			/* create list 5->6->3 = 365*/
 			push(&first, 3);
 			push(&first, 6);
@@ -405,17 +431,17 @@ int main (void) {
 			printf("Resultant List is:");
 			display_list(result, LINEAR);
 			break;	
-		case 10:
+		case 12:
 			printf("\nEnter data:");
 			scanf("%d", &num);			
 			head = add_to_list(head, num, APPEND, CIRCULAR);
 			break;
-		case 11:
+		case 13:
 			printf("\n");	
 			display_list(head, CIRCULAR);
 			printf("\n");
 			break;
-		case 12:
+		case 14:
 			if (check_circular(head))
 				printf("List is Circular\n");
 			else
