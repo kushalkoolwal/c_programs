@@ -63,26 +63,21 @@ void sort_list(node_t *head) {
 	}
 }
 
-void reverse_list(node_t *head) {
+node_t *reverse_list(node_t *head) {
 	
 	if (!check_empty_list(head))
-		return;
+		return NULL;
 
-	node_t *temp, *temp2, *temp3;
-	temp = head;
-	temp2 = temp->next;
-	temp3 = temp2->next;
-	temp->next = NULL;
+	node_t *current;
+	node_t *prev = NULL;
 	
-	do {
-		temp2->next = temp;
-		temp = temp2;
-		temp2 = temp3;
-		temp3 = temp3->next;
-	} while (temp3 != NULL);
-
-	temp2->next=temp;
-	head = temp2;
+	while (head != NULL) {
+		current = head->next;
+		head->next = prev;
+		prev = head;
+		head = current;
+	}
+	return prev;	/*otherwise we will lose the head */
 }
 
 void remove_duplicates(node_t *head) {
@@ -116,14 +111,13 @@ int data_by_node_pos (node_t *head, int pos) {
 		return -1;
 
 	node_t *current, *follow;
-	current=head;
-	follow=head;
+	current = head;
+	follow = head;
 
 	for (i=0; i < pos; i++)
 		if (current->next != NULL)
 			current=current->next;
-
-	follow = head;
+	
 	while (current != NULL ) {
 		current = current->next;
 		follow = follow->next;
@@ -136,7 +130,7 @@ void delete_last_node (node_t *head) {
 	node_t *current, *prev;
 
 	/* set up two pointers, prev is one step behind current */
-	current=head;
+	current = head;
 	prev = NULL;
 	
 	/* loop will exit when current is pointing to last node */
@@ -172,7 +166,7 @@ node_t *delete_node (node_t *head, int val, boolean only_one_ptr) {
 		prev=current;
 		current=current->next;
 	}
-	return head;
+	return head; 	/*otherwise we will lose the head */
 }
 
 /* returns '1' if circular else returns '0' */
@@ -417,7 +411,7 @@ int main (void) {
 			remove_duplicates(head);
 			break;
 		case 9:
-			reverse_list(head);
+			head=reverse_list(head);
 			break;
 		case 10:
 			sort_list(head);
