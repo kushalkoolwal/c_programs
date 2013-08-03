@@ -136,8 +136,8 @@ void delete_last_node (node_t *head) {
 	node_t *current, *prev;
 
 	/* set up two pointers, prev is one step behind current */
-	current=head->next;
-	prev = head;
+	current=head;
+	prev = NULL;
 	
 	/* loop will exit when current is pointing to last node */
 	while (current->next != NULL) {
