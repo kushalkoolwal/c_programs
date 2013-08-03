@@ -107,6 +107,30 @@ void remove_duplicates(node_t *head) {
 	}
 }
 
+/* returns node's data from last based on the position specified */
+int data_by_node_pos (node_t *head, int pos) {
+
+	int i;
+
+	if (!check_empty_list(head))
+		return -1;
+
+	node_t *current, *follow;
+	current=head;
+	follow=head;
+
+	for (i=0; i < pos; i++)
+		if (current->next != NULL)
+			current=current->next;
+
+	follow = head;
+	while (current != NULL ) {
+		current = current->next;
+		follow = follow->next;
+	}
+	return follow->data;
+}
+
 void delete_last_node (node_t *head) {
 
 	node_t *current, *prev;
@@ -115,6 +139,7 @@ void delete_last_node (node_t *head) {
 	current=head->next;
 	prev = head;
 	
+	/* loop will exit when current is pointing to last node */
 	while (current->next != NULL) {
 		prev = current;
 		current = current->next;
@@ -343,7 +368,7 @@ void display_menu () {
 	printf("Press 4 to delete node\n");
 	printf("Press 5 to delete node (only one ptr)\n");
 	printf("Press 6 to delete last node\n");
-	printf("Press 7 to delete a node by position\n");
+	printf("Press 7 to retrieve data by position\n");
 	printf("Press 8 to remove duplicate nodes\n");
 	printf("Press 9 to reverse the list\n");
 	printf("Press 10 to sort the list\n");
@@ -403,9 +428,9 @@ int main (void) {
 			delete_last_node(head);
 			break;
 		case 7:
-			/*printf("Enter node number to be deleted:");
+			printf("Enter node number from last to retrieve data from:");
 			scanf("%d", &num);
-			delete_node_by_pos(head, num);*/
+			printf("Data=%d\n", data_by_node_pos(head, num));
 			break;
 		case 8:
 			remove_duplicates(head);
