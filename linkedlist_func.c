@@ -148,50 +148,31 @@ void delete_last_node (node_t *head) {
 	free(current);
 } 
 
-void delete_node (node_t *head, int val, boolean only_one_ptr) {
+node_t *delete_node (node_t *head, int val, boolean only_one_ptr) {
 
-	int found=FALSE;
+	if (!check_empty_list(head))
+		return NULL;
 
-	node_t *temp, *temp2;
-
-	temp = head;
-	/*keep tranversing until number is found */
-	while (found==FALSE && temp!=NULL) {
-		if (temp->data == val)
-			found=TRUE;			
-		else
-			temp=temp->next;		
-	}
-		
-	if (found) {
-		/* if node is head node itself */		
-		if (temp == head) {			
-			/* perform deletion */
-			head=head->next;
-			temp->next=NULL;
-			free(temp);
+	node_t *current, *prev;
+	current = head;
+	prev = NULL;
+	
+	while (current != NULL) {	
+		if (current->data == val) {
+			/* if node is head node itself */		
+			if (prev == NULL)
+				head = current->next;
+			/* node can be anywhere */
+			else {
+				prev->next = current->next;
+			}
+			current->next = NULL;
+			free(current);
 		}
-		else if (!only_one_ptr) {
-			/* node can be anywhere including the end of list */
-			temp2 = head;
-
-			while(temp2->next != temp)
-				temp2=temp2->next;
-
-			/* perform deletion */
-			temp2->next=temp->next;
-			temp->next=NULL;
-			free(temp);		
-		}
-		/* delete node with only one pointer, cannot use for last node */
-		else {
-			temp->data = temp->next->data;
-			temp->next = temp->next->next;			
-		}
+		prev=current;
+		current=current->next;
 	}
-	else {
-	 printf("Not not found\n");
-	}
+	return head;
 }
 
 /* returns '1' if circular else returns '0' */
@@ -417,7 +398,7 @@ int main (void) {
 		case 4:
 			printf("Enter data to be deleted:");
 			scanf("%d", &num);
-			delete_node(head, num, FALSE);
+			head = delete_node(head, num, FALSE);
 			break;
 		case 5:
 			printf("Enter data to be deleted:");
