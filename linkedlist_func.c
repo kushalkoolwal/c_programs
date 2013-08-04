@@ -85,20 +85,22 @@ void remove_duplicates(node_t *head) {
 	if (!check_empty_list(head))
 		return;
 
-	node_t *temp, *temp2, *dup;
+	node_t *p, *q, *temp;
 
-	temp = head;
-	while (temp != NULL) {
-		temp2 = temp;
-		while (temp2 != NULL && temp2->next != NULL) {
-			if (temp->data == temp2->next->data) {
-				dup = temp2->next;
-				temp2->next=temp2->next->next;
-				free (dup);
+	p = head;
+	while (p != NULL && p->next != NULL) {
+		q = p;
+		while (q->next != NULL) {
+			if (p->data == q->next->data) {
+				temp = q->next;
+				q->next=q->next->next;
+				free (temp);
 			}
-			temp2=temp2->next;
+			else {
+				q=q->next; /* pay attention, we only increment if matched */
+			}
 		}
-		temp=temp->next;
+		p=p->next;
 	}
 }
 
