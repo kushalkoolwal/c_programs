@@ -1,6 +1,4 @@
-/*
- *
- */
+/* Binary Search Tree Operations */
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
@@ -20,6 +18,35 @@ typedef struct node {
 } node_t;
 
 node_t *root, *new_node, *current, *parent, *temp;
+
+/* function to allocate a new node */
+node_t *createNode (int val) {
+
+	node_t *node = (node_t *)malloc(sizeof(node_t));
+	if (node == NULL) {
+		printf("Error creating a new node.\n");
+		exit (CODE);
+	}
+	node->left = NULL;
+	node->right = NULL;
+	node->data = val;
+	return node;	
+}
+
+
+node_t *createBSTFromSortedArray (int array[], int start, int end) {
+
+	if (start > end)
+		return NULL;
+
+	int mid = (start + end) / 2;
+
+	node_t *root = createNode(array[mid]);
+	printf("DEBUG: creating node %d\n", array[mid]);
+	root->left = createBSTFromSortedArray(array, start, mid-1);
+	root->right = createBSTFromSortedArray(array, mid+1, end);
+	return root;
+}
 
 node_t * find_min_bst(node_t *current) {
 
@@ -160,15 +187,6 @@ node_t *delete_node(node_t *current, int key) {
 	return current;
 }
 
-void inorder (node_t *current) {
-	
-	if (current != NULL) {
-		inorder(current->left);
-		printf("%d\t", current->data);
-		inorder(current->right);
-	}	
-}
-
 void print_given_level(node_t *root, int level) {
 
 	if (root == NULL) {
@@ -191,6 +209,15 @@ void bfs_traversal (node_t *root) {
 
 	for (i=1; i<=height; i++)
 		print_given_level(root, i);
+}
+
+void inorder (node_t *current) {
+	
+	if (current != NULL) {
+		inorder(current->left);
+		printf("%d\t", current->data);
+		inorder(current->right);
+	}	
 }
 
 void display_bst (int t) {
@@ -248,7 +275,7 @@ void display_menu () {
 	printf("Linked List Implementation\n");
 	printf("Press 0  to display this menu\n");	
 	printf("Press 1  to create BST\n");
-	printf("Press 2  to display BST in-order\n");
+	printf("Press 2  to DFS traversal (in-order)\n");
 	printf("Press 3  to search for an element\n");
 	printf("Press 4  to delete an element from BST\n");
 	printf("Press 5  to BFS traversal\n");		
@@ -258,6 +285,7 @@ void display_menu () {
 	printf("Press 9  to find min. node in BST\n");
 	printf("Press 10 to find max. node in BST\n");
 	printf("Press 11  to delete entire BST\n");
+	printf("Press 12  to create BST from sorted array\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -265,6 +293,10 @@ void display_menu () {
 int main (void) {
 
 	int command, node_val;
+	int array[]={0,1,2,3,4,5,6,7,8,9};
+	int n = sizeof(array)/sizeof(array[0]);
+
+
 	root = NULL;
 	display_menu();
 
@@ -279,11 +311,9 @@ int main (void) {
 			break;
 		case 1:
 			create_bst();
-			display_menu();
 			break;
 		case 2:
 			display_bst(2);
-			display_menu();
 			break;
 		case 3:
 			printf("Enter the node to be searched:");
@@ -293,43 +323,37 @@ int main (void) {
 				printf("\nNode %d found!\n", temp->data);
 			else
 				printf("\nNode not found!\n");
-			display_menu();
 			break;
 		case 4:
 			printf("Enter the node to be deleted:");
 			scanf("%d", &node_val);
 			delete_node(root, node_val);
-			display_menu();
 			break;
 		case 5:
 			bfs_traversal(root);
-			display_menu();
 			break;
 		case 6:
 			printf("Height of tree is %d\n", max_depth_bst(root));
-			display_menu();
 			break;
 		case 7:
 			printf("Size of tree is %d\n", size_bst(root));
-			display_menu();
 			break;
 		case 8:
 			mirror_bst(root);
-			display_menu();
 			break;
 		case 9:
 			temp=find_min_bst(root);
 			printf("Min. node is %d\n", temp->data);
-			display_menu();
 			break;
 		case 10:
 			temp=find_max_bst(root);
 			printf("Max. node is %d\n", temp->data);
-			display_menu();
 			break;
 		case 11:
 			delete_bst(root);
-			display_menu();
+			break;
+		case 12:
+			root = createBSTFromSortedArray (array, 0, n-1);
 			break;
 		case -1:
 			return 0;
