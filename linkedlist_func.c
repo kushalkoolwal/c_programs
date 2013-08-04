@@ -142,6 +142,7 @@ void delete_last_node (node_t *head) {
 	free(current);
 } 
 
+/* See:http://tinyurl.com/lz4you6 for approaches to modify head pointer */
 node_t *delete_node (node_t *head, int val, boolean only_one_ptr) {
 
 	if (!check_empty_list(head))
@@ -157,11 +158,18 @@ node_t *delete_node (node_t *head, int val, boolean only_one_ptr) {
 			if (prev == NULL)
 				head = current->next;
 			/* node can be anywhere */
-			else {
+			else if (!only_one_ptr) {
 				prev->next = current->next;
+				current->next = NULL;
+				free(current);
 			}
-			current->next = NULL;
-			free(current);
+			/* single pointer version */
+			else {
+				node_t *temp = current->next;
+				current->data = temp->data;
+				current->next = temp->next;				
+				free(temp);				
+			}
 		}
 		prev=current;
 		current=current->next;
@@ -397,7 +405,7 @@ int main (void) {
 		case 5:
 			printf("Enter data to be deleted:");
 			scanf("%d", &num);
-			delete_node(head, num, TRUE);
+			head =  delete_node(head, num, TRUE);
 			break;
 		case 6:
 			delete_last_node(head);
