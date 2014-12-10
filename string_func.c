@@ -126,8 +126,8 @@ int check_palindrome (char *s) {
 	len = mystrlen(s);
 	/*printf("len: %d, sizeof: %d\n", len, sizeof(s));*/
 	/* note we are using len+1 for the null ('\0') character.
-       also we are not using sizeof operator in malloc. size of char on the 
-	   host is always 8.
+       Also we are not using sizeof operator in malloc.
+	   Size of char on the host is always 8.
      */
 	reverse=(char *)malloc(len+1);
 	mystrcpy (reverse, s);
@@ -155,7 +155,7 @@ char *mystrcat (char *s, char *d) {
 		i++;
 	}
 	/* need to append null character to mark end of string; otherwise it will
-	   it will be called array of characters instead of an actual string.
+	   be called array of characters instead of an actual string.
      */
 	s[i]='\0';
 
