@@ -190,7 +190,7 @@ int mystrcmp (char *s, char *d) {
 	return s[i] - d[i];
 }
 
-/* string length function (non-pointer) */
+/* string length function (non-pointer version) */
 int mystrlen (char *s) {
 
 	int len=0;
@@ -201,7 +201,7 @@ int mystrlen (char *s) {
 	return len;
 }
 
-/* string copy function (pointer) */
+/* string copy function (pointer version) */
 void mystrcpy_v2 (char *d, char *s) {
 
 	while (*s != '\0') {
@@ -211,8 +211,21 @@ void mystrcpy_v2 (char *d, char *s) {
 	}
 }
 
-/* string copy function (non-pointer) */
-void mystrcpy (char d[], char s[]) {
+/* string copy function (non-pointer)
+ * another way to pass character arrays
+ */
+/*void mystrcpy (char d[], char s[]) {
+
+	int i=0;
+	
+	while (s[i] != '\0') {
+		d[i] = s[i];
+		i++;
+	}
+}*/
+
+/* string copy function (non-pointer version) */
+void mystrcpy (char *d, char *s) {
 
 	int i=0;
 	
@@ -264,7 +277,10 @@ int main (void) {
 			printf("Enter a string to copy:");
 			/* scanf adds '\0' character automatically */
 			scanf("%s", buffer);
-			mystrcpy_v2(buffer1, buffer);
+			/* non-pointer version */
+			mystrcpy(buffer1, buffer); 
+			/* pointer version */			
+			//mystrcpy_v2(buffer1, buffer); 
 			printf("Source: %s, Dest: %s\n", buffer, buffer1);
 			break;
 		case 3:
