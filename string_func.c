@@ -13,6 +13,7 @@ typedef int boolean;
 
 #define ARRAY_SIZE 15
 
+/* function prototypes */
 int mystrlen (char *);
 void mystrcpy (char *, char *);
 void mystrrev (char *);
