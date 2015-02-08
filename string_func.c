@@ -36,12 +36,14 @@ void swap(char l[], int x, int y) {
    start = starting index of string
    end = ending index of string
  */
-void permute_string (char s[], int start, int end) {
+int permute_string (char s[], int start, int end) {
 
 	int i;
+	static int n=0;
 
 	if (start == end) {
 		printf("%s\n", s);
+		n++;
 	}
 	else {
 		for (i=start; i<=end; i++) {		
@@ -50,6 +52,7 @@ void permute_string (char s[], int start, int end) {
 			swap(s, start, i); /* backtracking */
 		}
 	}
+	return n;
 }
 
 /* converts string to integer (atoi) with sign extension */
@@ -353,7 +356,7 @@ int main (void) {
 			scanf("%s", buffer);
 			/*fgets(buffer, ARRAY_SIZE, stdin);*/
 			len=(strlen(buffer)-1);
-			permute_string(buffer, 0, len);
+			printf("Total number of permutation printed: %d\n", permute_string(buffer, 0, len));
 			break;
 		case -1:
 			return 0;
