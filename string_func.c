@@ -6,8 +6,11 @@
 /* define boolean types */
 #define TRUE 1
 #define FALSE 0
-
 typedef int boolean;
+/* if the value is less than or equal to zero
+ * then its considered as FALSE and TRUE if greater than 0
+ */
+
 /* define exit code */
 #define CODE 0
 
@@ -107,7 +110,27 @@ boolean mystrstr (char *s, char *t) {
     return FALSE;
 }
 
-/* function to check for anagrams */
+boolean mystrstr_v2 (char *s, char *t) {
+
+	int i, j, k;
+
+	i=0;
+	while (t[i] != '\0') {
+		if (t[i] == s[i]) {
+			i++;
+			continue;
+		}
+		else
+			return FALSE;
+	}
+	return TRUE;
+}
+
+
+/* function to check for anagrams
+ * a great way to check sortstr function
+ *
+*/
 boolean check_anagrams (char *s, char *t) {
 
 	sortstr(s);
@@ -129,7 +152,7 @@ int check_palindrome (char *s) {
 	char *d;
 
 	len = mystrlen(s);
-	printf("len: %d, sizeof: %d\n", len, sizeof(s));
+	//printf("len: %d, sizeof: %d\n", len, sizeof(s));
 	/* note we are using len+1 for the null ('\0') character.
        Also we are not using sizeof operator in malloc.
 	   Size of char on the host is always 8.
@@ -137,7 +160,7 @@ int check_palindrome (char *s) {
 	d=(char *)malloc(len+1);
 	mystrcpy (d, s);
 	mystrrev (d);
-	/*printf("len: %d, sizeof: %d\n", mystrlen(reverse), sizeof(reverse));*/
+	//printf("len: %d, sizeof: %d\n", mystrlen(reverse), sizeof(reverse));
 	if (mystrcmp (d, s) == 0)
 		return 0;
 	else
@@ -340,7 +363,8 @@ int main (void) {
 			scanf("%s", buffer);
 			printf("Enter substring:");
 			scanf("%s", buffer1);
-			if (mystrstr (buffer, buffer1))
+			//printf("Function return value is %d\n", mystrstr (buffer, buffer1));
+			if (mystrstr_v2 (buffer, buffer1))
 				printf("Is a substring\n");
 			else
 				printf("Not a substring\n");
