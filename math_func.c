@@ -21,11 +21,12 @@ int mypow(int, int); /* prototype for mypower */
 void dec_to_hex (int num) {
 
 	int i, j;
-	int result[ARRAY_SIZE];
+	int result[ARRAY_SIZE], rem;
 
 	i=0;
 	while (num != 0) {
-		result[i++] = num % 16;
+		rem = num % 16;
+		result[i++] = rem;
 		num = num / 16;
 	}
 
@@ -33,7 +34,7 @@ void dec_to_hex (int num) {
 	if (i == 0) {
 		printf("%d", i);
 	}
-
+	/* print the 'result' array from end */
 	else {
 		for (j=i-1; j>=0; j--) {
 			/* to print a,b,c,d,e,f use %x */
