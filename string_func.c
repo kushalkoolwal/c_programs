@@ -119,32 +119,33 @@ boolean check_anagrams (char *s, char *t) {
 		return FALSE;
 }
 
-/* check for palindrome.
-   a great way to check four string function that we have developed so far
+/*  check for palindrome.
+ *  a great way to check four string function that we have developed so far:
+ *	mystrlen, mystrcpy, mystrrev, swap	
  */
 int check_palindrome (char *s) {
 
 	int len;
-	char *reverse;
+	char *d;
 
 	len = mystrlen(s);
-	/*printf("len: %d, sizeof: %d\n", len, sizeof(s));*/
+	printf("len: %d, sizeof: %d\n", len, sizeof(s));
 	/* note we are using len+1 for the null ('\0') character.
        Also we are not using sizeof operator in malloc.
 	   Size of char on the host is always 8.
      */
-	reverse=(char *)malloc(len+1);
-	mystrcpy (reverse, s);
-	mystrrev (reverse);
+	d=(char *)malloc(len+1);
+	mystrcpy (d, s);
+	mystrrev (d);
 	/*printf("len: %d, sizeof: %d\n", mystrlen(reverse), sizeof(reverse));*/
-	if (mystrcmp (s, reverse) == 0)
+	if (mystrcmp (d, s) == 0)
 		return 0;
 	else
 		return 1;
 }
 
 /* concatenate string */
-char *mystrcat (char *s, char *d) {
+char *mystrcat (char *d, char *s) {
 
 	int i, j;
 
@@ -169,6 +170,7 @@ char *mystrcat (char *s, char *d) {
      */
 	s[i]='\0';
 
+	/*Question: Why do we need to return the array?*/
 	return s;
 }
 
@@ -183,7 +185,7 @@ void mystrrev (char *s) {
        we substract one from strlen because array indexs from 0
 	 */
 	j = strlen(s)-1;
-	printf("j=%d\n", j);
+	//printf("j=%d\n", j);
 	while (i < j) {
 		swap(s, i, j);
 		i++;
@@ -192,16 +194,16 @@ void mystrrev (char *s) {
 }
 
 /* string compare function */
-int mystrcmp (char *s, char *d) {
+int mystrcmp (char *d, char *s) {
 
 	int i=0;
 	
-	while ((s[i] == d[i])) {
-		if (d[i] == '\0')
+	while ((d[i] == s[i])) {
+		if (s[i] == '\0')
 			return 0;
 		i++;
 	}
-	return s[i] - d[i];
+	return (s[i] - d[i]);
 }
 
 /* string length function (non-pointer version) */
@@ -234,6 +236,7 @@ void mystrcpy (char *d, char *s) {
 		d[i] = s[i];
 		i++;
 	}
+	d[i] = '\0';
 }
 
 /* string copy function (non-pointer version)-Method 2
@@ -308,8 +311,8 @@ int main (void) {
 			printf("Enter 2nd string:");
 			scanf("%s", buffer1);
 			/*printf("String length for %s: %d\n", output, strlen(output));*/
-			mystrcmp(buffer, buffer1) == 0 ? printf("Strings are equal!\n") : \
-			printf("Strings are  not equal by %d!\n", mystrcmp(buffer, buffer1));
+			mystrcmp(buffer1, buffer) == 0 ? printf("Strings are equal!\n") : \
+			printf("Strings are  not equal by %d!\n", mystrcmp(buffer1, buffer));
 			break;
 		case 4:
 			printf("Enter a string to reverse:");
@@ -325,7 +328,7 @@ int main (void) {
 			/*printf("String length for %s: %d\n", buffer, strlen(buffer));*/
 			printf("Enter 2nd string:");
 			scanf("%s", buffer1);
-			printf("Concatenate string:%s\n", mystrcat(buffer, buffer1));
+			printf("Concatenate string:%s\n", mystrcat(buffer1, buffer));
 			break;
 		case 6:
 			printf("Enter a string (all small) to sort:");
