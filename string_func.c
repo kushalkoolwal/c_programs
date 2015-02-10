@@ -162,9 +162,9 @@ int check_palindrome (char *s) {
 	mystrrev (d);
 	//printf("len: %d, sizeof: %d\n", mystrlen(reverse), sizeof(reverse));
 	if (mystrcmp (d, s) == 0)
-		return 0;
-	else
 		return 1;
+	else
+		return 0;
 }
 
 /* concatenate string */
@@ -364,6 +364,7 @@ int main (void) {
 			printf("Enter substring:");
 			scanf("%s", buffer1);
 			//printf("Function return value is %d\n", mystrstr (buffer, buffer1));
+			//if (mystrstr (buffer, buffer1))
 			if (mystrstr_v2 (buffer, buffer1))
 				printf("Is a substring\n");
 			else
@@ -372,7 +373,7 @@ int main (void) {
 		case 8:
 			printf("Enter a string to check for Palindrome:");
 			scanf("%s", buffer);
-			if (check_palindrome(buffer) == 0)
+			if (check_palindrome(buffer))
 				printf("String is Palindrome\n");
 			else
 				printf("String is not Palindrome\n");			
