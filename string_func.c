@@ -98,7 +98,7 @@ char *sortstr (char *s) {
 }
 
 /* check whether 't' is a substring of 's' or not */
-boolean mystrstr (char *s, char *t) {
+boolean mysubstr (char *s, char *t) {
 
 	int i, j, k;
 
@@ -110,7 +110,7 @@ boolean mystrstr (char *s, char *t) {
     return FALSE;
 }
 
-boolean mystrstr_v2 (char *s, char *t) {
+boolean mysubstr_v2 (char *s, char *t) {
 
 	int i=0;
 
@@ -388,8 +388,8 @@ int main (void) {
 			printf("Enter substring:");
 			scanf("%s", buffer1);
 			//printf("Function return value is %d\n", mystrstr (buffer, buffer1));
-			//if (mystrstr (buffer, buffer1))
-			if (mystrstr_v2 (buffer, buffer1))
+			//if (mysubstr (buffer, buffer1))
+			if (mysubstr_v2 (buffer, buffer1))
 				printf("Is a substring\n");
 			else
 				printf("Not a substring\n");
