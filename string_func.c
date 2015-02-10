@@ -88,12 +88,16 @@ char *sortstr (char *s) {
 
 	int i, j, n;
 
-	n = strlen(s);	
-	for (i=n-2; i>=0; i--)
-		for (j=0; j<=i; j++)
+	n = strlen(s);
+	//printf("string length = %d\n", n);	
+	for (i=n-2; i>=0; i--) {
+	//	printf("i=%d",i);
+		for (j=0; j<=i; j++) {
+	//		printf(" j=%d\n", j);
 			if (s[j] > s[j+1])
 				swap (s, j, j+1);
-
+		}
+	}
 	return s;
 }
 
@@ -127,7 +131,7 @@ boolean mysubstr_v2 (char *s, char *t) {
 
 
 /* function to check for anagrams
- * a great way to check sortstr function
+ * a great way to check sortstr and swap function
  *
 */
 boolean check_anagrams (char *s, char *t) {
@@ -143,7 +147,7 @@ boolean check_anagrams (char *s, char *t) {
 
 boolean check_anagrams_v2 (char *s, char *t) {
 
-	int num1[26]={0}, num2[26] = {0};
+	int num1[26]={0}, num2[26]={0};
 	int i;
 
 	i=0;
