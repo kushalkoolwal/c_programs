@@ -186,7 +186,7 @@ int mystrcmp (char *s, char *d) {
 	int i=0;
 	
 	while ((s[i] == d[i])) {
-		if (s[i] == '\0')
+		if (d[i] == '\0')
 			return 0;
 		i++;
 	}
