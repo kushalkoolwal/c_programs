@@ -208,12 +208,16 @@ int factorial_recurse (int num) {
 		return (num * factorial_recurse(num-1));
 }
 
+/* Factorial example:
+   5! = 5x4x3x2x1
+   Note: 1! = 1, 0! = 1
+*/
 int factorial (int num) {
 
 	int i, result=1;
 	
 	for (i=num; i>=1; i--)
-		result = result * num;
+		result = result * i;
 	
 	return result;
 }
