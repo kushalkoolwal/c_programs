@@ -148,9 +148,15 @@ char *mystrcat (char *s, char *d) {
 
 	int i, j;
 
+	/* Two Methods */
+	/* Method #1	
 	i=0;
 	while(s[i] != '\0')
 		i++;
+	*/
+
+	/* Method #2 */
+	i = mystrlen(s);
 
 	j=0;
 	while(d[j] != '\0') {
