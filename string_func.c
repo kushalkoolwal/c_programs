@@ -214,7 +214,18 @@ void mystrcpy_v2 (char *d, char *s) {
 	}
 }
 
-/* string copy function (non-pointer)
+/* string copy function (non-pointer version)-Method 1*/
+void mystrcpy (char *d, char *s) {
+
+	int i=0;
+	
+	while (s[i] != '\0') {
+		d[i] = s[i];
+		i++;
+	}
+}
+
+/* string copy function (non-pointer version)-Method 2
  * another way to pass character arrays
  */
 /*void mystrcpy (char d[], char s[]) {
@@ -226,17 +237,6 @@ void mystrcpy_v2 (char *d, char *s) {
 		i++;
 	}
 }*/
-
-/* string copy function (non-pointer version) */
-void mystrcpy (char *d, char *s) {
-
-	int i=0;
-	
-	while (s[i] != '\0') {
-		d[i] = s[i];
-		i++;
-	}
-}
 
 void display_menu () {
 
