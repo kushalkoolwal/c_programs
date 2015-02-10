@@ -21,7 +21,7 @@ int mystrlen (char *);
 void mystrcpy (char *, char *);
 void mystrrev (char *);
 int mystrcmp (char *, char *);
-
+char *sortstr (char *);
 
 /* interchange l[x] and l[y] */
 void swap(char *l, int x, int y) {
@@ -83,55 +83,9 @@ int myatoi (char s[]) {
     return n;
 }
 
-/* string sort function using bubble sort */
-char *sortstr (char *s) {
-
-	int i, j, n;
-
-	n = mystrlen(s);
-	//printf("string length = %d\n", n);	
-	for (i=n-2; i>=0; i--) {
-	//	printf("i=%d",i);
-		for (j=0; j<=i; j++) {
-	//		printf(" j=%d\n", j);
-			if (s[j] > s[j+1])
-				swap (s, j, j+1);
-		}
-	}
-	return s;
-}
-
-/* check whether 't' is a substring of 's' or not */
-boolean mysubstr (char *s, char *t) {
-
-	int i, j, k;
-
-	for (i = 0; s[i]; i++) {
-		for (j = i, k = 0; t[k] && s[j] == t[k]; j++, k++);
-       		if (k > 0 && !t[k])
-               	return TRUE;         
-	}
-    return FALSE;
-}
-
-boolean mysubstr_v2 (char *s, char *t) {
-
-	int i=0;
-
-	while (t[i] != '\0') {
-		if (t[i] == s[i]) {
-			i++;
-			continue;
-		}
-		else
-			return FALSE;
-	}
-	return TRUE;
-}
-
 
 /* function to check for anagrams
- * a great way to check sortstr and swap function
+ * a great way to check sortstr, swap, mystrlen, and mystrcmp functions
  *
 */
 boolean check_anagrams (char *s, char *t) {
@@ -194,6 +148,54 @@ int check_palindrome (char *s) {
 	else
 		return 0;
 }
+
+
+/* string sort function using bubble sort */
+char *sortstr (char *s) {
+
+	int i, j, n;
+
+	n = mystrlen(s);
+	//printf("string length = %d\n", n);	
+	for (i=n-2; i>=0; i--) {
+	//	printf("i=%d",i);
+		for (j=0; j<=i; j++) {
+	//		printf(" j=%d\n", j);
+			if (s[j] > s[j+1])
+				swap (s, j, j+1);
+		}
+	}
+	return s;
+}
+
+/* check whether 't' is a substring of 's' or not */
+boolean mysubstr (char *s, char *t) {
+
+	int i, j, k;
+
+	for (i = 0; s[i]; i++) {
+		for (j = i, k = 0; t[k] && s[j] == t[k]; j++, k++);
+       		if (k > 0 && !t[k])
+               	return TRUE;         
+	}
+    return FALSE;
+}
+
+boolean mysubstr_v2 (char *s, char *t) {
+
+	int i=0;
+
+	while (t[i] != '\0') {
+		if (t[i] == s[i]) {
+			i++;
+			continue;
+		}
+		else
+			return FALSE;
+	}
+	return TRUE;
+}
+
 
 /* concatenate string */
 char *mystrcat (char *d, char *s) {
@@ -316,8 +318,8 @@ void display_menu () {
 	printf("Press 3  to compare strings\n");
 	printf("Press 4  to reverse a string\n");
 	printf("Press 5  to concatenate strings\n");
-	printf("Press 6  to sort a string\n");
-	printf("Press 7  to check for substring\n");
+	printf("Press 6  to check for substring\n");
+	printf("Press 7  to sort a string\n");
 	printf("Press 8  to check for plaindrome strings\n");
 	printf("Press 9  to check for anagrams\n");
 	printf("Press 10 for atoi function\n");
@@ -382,11 +384,6 @@ int main (void) {
 			printf("Concatenate string:%s\n", mystrcat(buffer1, buffer));
 			break;
 		case 6:
-			printf("Enter a string (all small) to sort:");
-			scanf("%s", buffer);			
-			printf("Sorted string: %s\n", sortstr(buffer));
-			break;
-		case 7:
 			printf("Enter base string:");
 			scanf("%s", buffer);
 			printf("Enter substring:");
@@ -397,6 +394,11 @@ int main (void) {
 				printf("Is a substring\n");
 			else
 				printf("Not a substring\n");
+			break;		
+		case 7:
+			printf("Enter a string (all small) to sort:");
+			scanf("%s", buffer);			
+			printf("Sorted string: %s\n", sortstr(buffer));
 			break;
 		case 8:
 			printf("Enter a string to check for Palindrome:");
