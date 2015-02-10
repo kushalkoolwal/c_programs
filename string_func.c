@@ -157,10 +157,10 @@ char *sortstr (char *s) {
 
 	n = mystrlen(s);
 	//printf("string length = %d\n", n);	
-	for (i=n-2; i>=0; i--) {
-	//	printf("i=%d",i);
-		for (j=0; j<=i; j++) {
-	//		printf(" j=%d\n", j);
+	for (i=0; i<n; i++) {
+		printf("i=%d",i);
+		for (j=0; j<(n-i-1); j++) {
+			printf(" j=%d\n", j);
 			if (s[j] > s[j+1])
 				swap (s, j, j+1);
 		}
