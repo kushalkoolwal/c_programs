@@ -15,7 +15,9 @@ typedef int boolean;
 
 int mypow(int, int); /* prototype for mypower */
 
-/* convert decimal to hex and store results in an array */
+/* convert decimal to hex and store results in an array
+ * http://www.permadi.com/tutorial/numDecToHex/
+ */
 void dec_to_hex (int num) {
 
 	int i, j;
@@ -88,6 +90,7 @@ void calc_fibonacci(int num) {
 		}
 		printf("%d\t", running);
 	}
+	printf("\n");
 }
 
 void power_of_two (int num) {
@@ -166,10 +169,14 @@ int sum_digits (int num) {
 boolean is_prime(int num) {
 
 	int i;
-	
+
+	/* check for boundary conditions */	
 	if (num == 0 || num == 1)
 		return FALSE;
 
+	/* iterate between 2 and the num itself, if num is exactly divisble by any
+       number, then it is not a prime number
+     */
 	for (i = 2; i < num; i++) {
 		if (num % i == 0)
 			return FALSE;
