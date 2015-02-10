@@ -88,7 +88,7 @@ char *sortstr (char *s) {
 
 	int i, j, n;
 
-	n = strlen(s);
+	n = mystrlen(s);
 	//printf("string length = %d\n", n);	
 	for (i=n-2; i>=0; i--) {
 	//	printf("i=%d",i);
