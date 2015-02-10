@@ -21,7 +21,7 @@ int mystrcmp (char *, char *);
 
 
 /* interchange l[x] and l[y] */
-void swap(char l[], int x, int y) {
+void swap(char *l, int x, int y) {
 
 	char temp;
 	
