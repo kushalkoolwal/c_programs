@@ -172,7 +172,12 @@ void mystrrev (char *s) {
 	int i, j;
 
 	i=0;
+	/* strlen function will return a value of 4 for 'john'
+       i.e. it does not take into account for '\0'
+       we substract one from strlen because array indexs from 0
+	 */
 	j = strlen(s)-1;
+	printf("j=%d\n", j);
 	while (i < j) {
 		swap(s, i, j);
 		i++;
