@@ -249,6 +249,10 @@ void mystrcpy (char *d, char *s) {
 	}
 }*/
 
+/* Ways to pass arrays to functions:
+ * http://www.tutorialspoint.com/cprogramming/c_passing_arrays_to_functions.htm
+*/
+
 void display_menu () {
 
 	printf("\n***String based programs in C***\n");
