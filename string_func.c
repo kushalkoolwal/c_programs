@@ -93,7 +93,7 @@ boolean check_anagrams (char *s, char *t) {
 	sortstr(s);
     sortstr(t);
 
-	if (strcmp(s, t) == 0)
+	if (mystrcmp(s, t) == 0)
 		return TRUE;
 	else
 		return FALSE;
