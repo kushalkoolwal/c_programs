@@ -61,12 +61,13 @@ int permute_string (char s[], int start, int end) {
 /* converts string to integer (atoi) with sign extension */
 int myatoiv2 (char s[]) {
 
-	int i=0, n, sign;
+	int i, n, sign;
 
+    i=n=0;
 	sign = s[i] == '-' ? -1 : 1;
 	if (s[i] == '+' || s[i] == '-')
 		i++;
-    for (n = 0; isdigit(s[i]); i++)
+    for (;isdigit(s[i]); i++)
         n = 10 * n + (s[i] - '0');
     return (sign*n);
 }
