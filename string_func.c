@@ -112,9 +112,8 @@ boolean mystrstr (char *s, char *t) {
 
 boolean mystrstr_v2 (char *s, char *t) {
 
-	int i, j, k;
+	int i=0;
 
-	i=0;
 	while (t[i] != '\0') {
 		if (t[i] == s[i]) {
 			i++;
@@ -140,6 +139,31 @@ boolean check_anagrams (char *s, char *t) {
 		return TRUE;
 	else
 		return FALSE;
+}
+
+boolean check_anagrams_v2 (char *s, char *t) {
+
+	int num1[26]={0}, num2[26] = {0};
+	int i;
+
+	i=0;
+	while (s[i] != '\0') {
+		num1[s[i] - 'a']++;
+		i++;
+	}
+
+	i=0;
+	while (t[i] != '\0') {
+		num2[t[i] - 'a']++;
+		i++;
+	}
+
+	for (i=0; i<26; i++) {
+		if(num1[i] != num2[i])
+			return FALSE;
+		//printf("num1[%d]=%d & num2[%d]=%d\n", i, num1[i], i, num2[i]);
+	}
+	return TRUE;
 }
 
 /*  check for palindrome.
@@ -383,7 +407,8 @@ int main (void) {
 			scanf("%s", buffer);
 			printf("Enter 2nd string:");
 			scanf("%s", buffer1);
-			if (check_anagrams (buffer, buffer1))
+			//if (check_anagrams (buffer, buffer1))
+			if (check_anagrams_v2 (buffer, buffer1))
 				printf("Strings are anagrams\n");
 			else
 				printf("Strings are not anagrams\n");
