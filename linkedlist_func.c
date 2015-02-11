@@ -33,6 +33,20 @@ boolean check_empty_list (node_t *node) {
 	}
 }
 
+int list_length (node_t *head) {
+
+	int len=0;
+
+	node_t *current;
+	current = head;
+
+	while (current != NULL){
+		len++;
+		current = current->next;
+	}
+	return len;
+}
+
 /* function to sort list using bubble sort
    here we are pushing the larger data towards the end unlike the default
    bubble sort implementation where smaller data is pushed (bubbled) towards
@@ -63,26 +77,31 @@ void sort_list(node_t *head) {
 	}
 }
 
+//http://www.dailyfreecode.com/code/sort-linked-list-swapping-data-2818.aspx
 void sort_list_v2 (node_t *head) {
 
-	int tmp_data;
+	int i,j,n,tmp_data;
 
 	if (!check_empty_list(head))
 		return;
+
+	n = list_length(head);
+	printf("Length of list=%d\n", n);
 	
-	node_t *p, *q, *temp;
-	p=q=head;
-	while (p != NULL && p->next != NULL) {
-		q=p;
-		while (q->next != NULL) {
-			if (p->data > q->data ) {
+	node_t *p, *q;
+	/* bubble sort */
+	for (i=0; i < n; i++){
+		p = head;
+		q = p->next;
+		for (j=0; j < (n-i-1); j++) {
+			if (p->data > q->data) {
 				tmp_data = p->data;
 				p->data = q->data;
-				q->data = tmp_data;
+				q->data = tmp_data;	
 			}
 			q=q->next;
+			p=p->next;
 		}
-		p=p->next;
 	}
 }
 
@@ -389,21 +408,22 @@ node_t *add_two_lists (node_t *first, node_t *second, node_t *result) {
 void display_menu () {
 
 	printf("Linked List Implementation\n");
-	printf("Press 0 to display this menu\n");	
+	printf("Press 0 to display this menu\n");
 	printf("Press 1 to append elements\n");
 	printf("Press 2 to prepend elements\n");
 	printf("Press 3 to display list\n");
-	printf("Press 4 to delete node\n");
-	printf("Press 5 to delete node (only one ptr)\n");
-	printf("Press 6 to delete last node\n");
-	printf("Press 7 to retrieve data by position\n");
-	printf("Press 8 to remove duplicate nodes\n");
-	printf("Press 9 to reverse the list\n");
-	printf("Press 10 to sort the list\n");
-	printf("Press 11 to add two lists\n");
-	printf("Press 12 to create circular linked list\n");
-	printf("Press 13 to display circular linked list\n");
-	printf("Press 14 to detect if list is circular or not\n");
+	printf("Press 4 to count no. of nodes\n");
+	printf("Press 5 to delete node\n");
+	printf("Press 6 to delete node (only one ptr)\n");
+	printf("Press 7 to delete last node\n");
+	printf("Press 8 to retrieve data by position\n");
+	printf("Press 9 to remove duplicate nodes\n");
+	printf("Press 10 to reverse the list\n");
+	printf("Press 11 to sort the list\n");
+	printf("Press 12 to add two lists\n");
+	printf("Press 13 to create circular linked list\n");
+	printf("Press 14 to display circular linked list\n");
+	printf("Press 15 to detect if list is circular or not\n");
 	printf("Press -1 to quit\n");
 
 }
@@ -443,34 +463,39 @@ int main (void) {
 			printf("\n");
 			break;
 		case 4:
+			printf("\n");	
+			printf("The number of nodes is %d", list_length(head));
+			printf("\n");
+			break;		
+		case 5:
 			printf("Enter data to be deleted:");
 			scanf("%d", &num);
 			head = delete_node(head, num, FALSE);
 			break;
-		case 5:
+		case 6:
 			printf("Enter data to be deleted:");
 			scanf("%d", &num);
 			head =  delete_node(head, num, TRUE);
 			break;
-		case 6:
+		case 7:
 			delete_last_node(head);
 			break;
-		case 7:
+		case 8:
 			printf("Enter node number from last to retrieve data from:");
 			scanf("%d", &num);
 			printf("Data=%d\n", data_by_node_pos(head, num));
 			break;
-		case 8:
+		case 9:
 			remove_duplicates(head);
 			break;
-		case 9:
+		case 10:
 			head=reverse_list(head);
 			break;
-		case 10:
-			sort_list(head);
-			//sort_list_v2(head);
-			break;
 		case 11:
+			//sort_list(head);
+			sort_list_v2(head);
+			break;
+		case 12:
 			/* create list 5->6->3 = 365*/
 			push(&first, 3);
 			push(&first, 6);
@@ -485,17 +510,17 @@ int main (void) {
 			printf("Resultant List is:");
 			display_list(result, LINEAR);
 			break;	
-		case 12:
+		case 13:
 			printf("\nEnter data:");
 			scanf("%d", &num);			
 			head = add_to_list(head, num, APPEND, CIRCULAR);
 			break;
-		case 13:
+		case 14:
 			printf("\n");	
 			display_list(head, CIRCULAR);
 			printf("\n");
 			break;
-		case 14:
+		case 15:
 			//if (check_circular(head))
 			if (check_circular_v2(head))
 				printf("List is Circular\n");
