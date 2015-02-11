@@ -228,6 +228,19 @@ boolean check_circular (node_t *head) {
 	return FALSE;
 }
 
+boolean check_circular_v2 (node_t *head) {
+
+	node_t *current;
+	current = head;
+
+	while (current != NULL) {
+		if (current->next == head)
+			return TRUE;
+		current=current->next;
+	}
+	return FALSE;
+}
+
 void display_list(node_t *head, enum type_of_ll type) {
 
 	if (!check_empty_list(head))
@@ -235,9 +248,8 @@ void display_list(node_t *head, enum type_of_ll type) {
 
 	node_t *current = head;
 
-	if (type == LINEAR) {	
+	if (type == LINEAR) {
 		while(current != NULL) {
-			/* current->next != NULL will skip the last element */
 			/* current != NULL will traverse the whole list */
 			printf("%d--->",current->data);
 			current=current->next;
@@ -282,7 +294,7 @@ node_t *add_to_list (node_t *head, int val, enum insert_loc loc, enum type_of_ll
 	/* append node at the end of list */
 	else if(loc == APPEND) {
 		temp = head;
-		/* temp->next locates the last node */
+		/* go to the last node i.e. temp->next != NULL locates the last node */
 		if (type == LINEAR) {
 			while(temp->next != NULL)
 				temp=temp->next;
@@ -370,6 +382,9 @@ node_t *add_two_lists (node_t *first, node_t *second, node_t *result) {
 	return result;	
 }
 
+/* Good sample reference program:
+ * http://www.dailyfreecode.com/code/sort-linked-list-swapping-data-2818.aspx
+ */
 
 void display_menu () {
 
@@ -481,7 +496,8 @@ int main (void) {
 			printf("\n");
 			break;
 		case 14:
-			if (check_circular(head))
+			//if (check_circular(head))
+			if (check_circular_v2(head))
 				printf("List is Circular\n");
 			else
 				printf("List is not Circular\n");
