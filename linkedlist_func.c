@@ -157,8 +157,11 @@ node_t *delete_node (node_t *head, int val, boolean only_one_ptr) {
 	while (current != NULL) {	
 		if (current->data == val) {
 			/* if node is head node itself */		
-			if (prev == NULL)
+			if (current == head) {
 				head = current->next;
+				current->next = NULL;
+				free(current);
+			}
 			/* node can be anywhere */
 			else if (!only_one_ptr) {
 				prev->next = current->next;
@@ -210,6 +213,7 @@ void display_list(node_t *head, enum type_of_ll type) {
 
 	if (type == LINEAR) {	
 		while(current != NULL) {
+			/* current->next != NULL will skip the last element */
 			printf("%d--->",current->data);
 			current=current->next;
 		}
