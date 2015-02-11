@@ -94,6 +94,7 @@ void remove_duplicates(node_t *head) {
 			if (p->data == q->next->data) {
 				temp = q->next;
 				q->next=q->next->next;
+				temp->next = NULL;
 				free (temp);
 			}
 			else {
@@ -129,9 +130,8 @@ int data_by_node_pos (node_t *head, int pos) {
 
 void delete_last_node (node_t *head) {
 
-	node_t *current, *prev;
-
 	/* set up two pointers, prev is one step behind current */
+	node_t *current, *prev;
 	current = head;
 	prev = NULL;
 	
@@ -150,6 +150,7 @@ node_t *delete_node (node_t *head, int val, boolean only_one_ptr) {
 	if (!check_empty_list(head))
 		return NULL;
 
+	/* set up two pointers, prev is one step behind current */
 	node_t *current, *prev;
 	current = head;
 	prev = NULL;
@@ -214,6 +215,7 @@ void display_list(node_t *head, enum type_of_ll type) {
 	if (type == LINEAR) {	
 		while(current != NULL) {
 			/* current->next != NULL will skip the last element */
+			/* current != NULL will traverse the whole list */
 			printf("%d--->",current->data);
 			current=current->next;
 		}
@@ -253,7 +255,7 @@ enum insert_loc loc, enum type_of_ll type) {
 	
 	/* first node in the list */
 	if (head == NULL) {	
-		head = new_node;		
+		head = new_node;
 	}
 	/* append node at the end of list */
 	else if(loc == APPEND) {
