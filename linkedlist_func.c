@@ -46,7 +46,7 @@ void sort_list(node_t *head) {
 		return;
 
 	node_t *temp;
-	/* keep looing until no swap occurs */
+	/* keep looping until no swap occurs */
 	while (done) {
 		done = 0;
 		temp = head;		
@@ -56,10 +56,33 @@ void sort_list(node_t *head) {
 				tmp_data = temp->data;
 				temp->data = temp->next->data;
 				temp->next->data = tmp_data;
-				done = 1;		/* rest the done flag */
+				done = 1;		/* reset the done flag */
 			}
 			temp = temp->next;
 		}
+	}
+}
+
+void sort_list_v2 (node_t *head) {
+
+	int tmp_data;
+
+	if (!check_empty_list(head))
+		return;
+	
+	node_t *p, *q, *temp;
+	p=q=head;
+	while (p != NULL && p->next != NULL) {
+		q=p;
+		while (q->next != NULL) {
+			if (p->data > q->data ) {
+				tmp_data = p->data;
+				p->data = q->data;
+				q->data = tmp_data;
+			}
+			q=q->next;
+		}
+		p=p->next;
 	}
 }
 
@@ -245,8 +268,7 @@ node_t *create_node (int val) {
 	return node;	
 }
 
-node_t *add_to_list (node_t *head, int val, \
-enum insert_loc loc, enum type_of_ll type) {
+node_t *add_to_list (node_t *head, int val, enum insert_loc loc, enum type_of_ll type) {
 
 	node_t *new_node, *temp;
 
@@ -431,6 +453,7 @@ int main (void) {
 			break;
 		case 10:
 			sort_list(head);
+			//sort_list_v2(head);
 			break;
 		case 11:
 			/* create list 5->6->3 = 365*/
