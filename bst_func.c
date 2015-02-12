@@ -165,7 +165,8 @@ node_t *delete_node(node_t *current, int key) {
 	else {
 		if (current->left && current->right) {
 		 /* a) find a minimum value in the right subtree;
-			b) replace value of the node to be removed with found minimum. Now, 			   right subtree contains a duplicate!
+			b) replace value of the node to be removed with found minimum. Now, 
+               right subtree contains a duplicate!
 			c) apply remove to the right subtree to remove a duplicate.
 		  */
 			temp=find_min_bst(current->right);
@@ -200,7 +201,9 @@ void print_given_level(node_t *root, int level) {
 		print_given_level(root->right, level -1);
 	}
 }
-
+/* Tree Traversal Links:
+ * http://www.geeksforgeeks.org/618/
+ */
 void bfs_traversal (node_t *root) {
 
 	int height, i;
@@ -241,11 +244,11 @@ void inorder (node_t *current) {
 /*
  *http://www.c4learn.com/c-programs/c-program-to-implement-binary-search-tree-traversal.html
  */
-void display_bst () {
+void dfs_traversal () {
 	
 	int t;
 
-	printf("Enter 1 (inorder), 2 (preorder, 3 (postorder))\n");
+	printf("Enter 1 (inorder), 2 (preorder, 3 (postorder)):");
 	scanf("%d", &t);
 
 	/* check if list is empty */
@@ -305,7 +308,7 @@ void display_menu () {
 	printf("Linked List Implementation\n");
 	printf("Press 0  to display this menu\n");	
 	printf("Press 1  to create BST\n");
-	printf("Press 2  to traverse the tree\n");
+	printf("Press 2  to traverse the tree (DFS traversals)\n");
 	printf("Press 3  to search for an element\n");
 	printf("Press 4  to delete an element from BST\n");
 	printf("Press 5  to BFS traversal\n");		
@@ -343,7 +346,7 @@ int main (void) {
 			create_bst();
 			break;
 		case 2:
-			display_bst();
+			dfs_traversal();
 			break;
 		case 3:
 			printf("Enter the node to be searched:");
