@@ -145,8 +145,8 @@ node_t *delete_node(node_t *current, int key) {
 	else {
 		if (current->left && current->right) {
 		 /* a) find a minimum value in the right subtree;
-			b) replace value of the node to be removed with found minimum. Now, 
-               right subtree contains a duplicate!
+			b) replace value of the node to be removed with found minimum.
+			   Now, right subtree contains a duplicate!
 			c) apply remove to the right subtree to remove a duplicate.
 		  */
 			temp=find_min_bst(current->right);
@@ -184,8 +184,6 @@ void print_given_level(node_t *root, int level) {
 
 /*  the number of nodes along the longest path from the root node down to the farthest leaf node.*/
 int max_depth_bst(node_t *current) {
-
-	int ldepth, rdepth;
 
 	if (current == NULL)
     	return 0;
