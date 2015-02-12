@@ -121,26 +121,6 @@ int size_bst(node_t *current) {
 		return(size_bst(current->left) + 1 + size_bst(current->right));	
 }
 
-/*  the number of nodes along the longest path from the root node down to the farthest leaf node.*/
-int max_depth_bst(node_t *current) {
-
-	int ldepth, rdepth;
-
-	if (current == NULL)
-    	return 0;
-   	else {
-		/* compute the depth of each subtree */
-       	int ldepth = max_depth_bst(current->left);
-       	int rdepth = max_depth_bst(current->right);
- 
-       	/* use the max. of left-subtree & right-subtree */
-       	if (ldepth > rdepth)
-        	return(ldepth+1);
-       	else
-			return(rdepth+1);
-   	}
-}
-
 void delete_bst(node_t *current) {
 
 	if (current != NULL) {
@@ -197,21 +177,45 @@ void print_given_level(node_t *root, int level) {
 		printf("%d\t", root->data);
 	}
 	else if (level > 1) {
-		print_given_level(root->left, level -1);
-		print_given_level(root->right, level -1);
+		print_given_level(root->left, level-1);
+		print_given_level(root->right, level-1);
 	}
 }
+
+/*  the number of nodes along the longest path from the root node down to the farthest leaf node.*/
+int max_depth_bst(node_t *current) {
+
+	int ldepth, rdepth;
+
+	if (current == NULL)
+    	return 0;
+   	else {
+		/* compute the depth of each subtree */
+       	int ldepth = max_depth_bst(current->left);
+       	int rdepth = max_depth_bst(current->right);
+ 
+       	/* use the max. of left-subtree & right-subtree */
+       	if (ldepth > rdepth)
+        	return(ldepth+1);
+       	else
+			return(rdepth+1);
+   	}
+}
+
 /* Tree Traversal Links:
  * http://www.geeksforgeeks.org/618/
+ * http://leetcode.com/2010/09/printing-binary-tree-in-level-order.html
+ * Good Example: http://www.thegeekstuff.com/2013/02/c-binary-tree/
  */
 void bfs_traversal (node_t *root) {
-
+ 
 	int height, i;
 
 	height = max_depth_bst (root);
 
 	for (i=1; i<=height; i++)
 		print_given_level(root, i);
+	printf("\n");
 }
 
 void postorder (node_t *current) {
@@ -241,14 +245,15 @@ void inorder (node_t *current) {
 	}
 }
 
-/*
- *http://www.c4learn.com/c-programs/c-program-to-implement-binary-search-tree-traversal.html
+/* Useful BST links
+ * http://www.c4learn.com/c-programs/c-program-to-implement-binary-search-tree-traversal.html
+ * http://www.sanfoundry.com/c-program-construct-binary-search-tree/
  */
 void dfs_traversal () {
 	
 	int t;
 
-	printf("Enter 1 (inorder), 2 (preorder, 3 (postorder)):");
+	printf("Enter 1 (inorder); 2 (preorder); 3 (postorder):");
 	scanf("%d", &t);
 
 	/* check if list is empty */
