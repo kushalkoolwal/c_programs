@@ -18,7 +18,9 @@ typedef struct node {
 	struct node *next; /* next is a pointer to a structure of type node_t */
 } node_t;
 
-node_t *head, *new_node, *temp, *front, *rear;
+node_t *new_node, *temp;
+node_t *top;			  	// for stack
+node_t *front, *rear; 	// for Q
 
 /* function to allocate a new node */
 node_t *create_node (int val) {
@@ -35,7 +37,7 @@ node_t *create_node (int val) {
 
 void display_stack () {
 
-	temp = head;
+	temp = top;
 
 	/* check if list is empty */
 	if (temp == NULL)		
@@ -107,13 +109,13 @@ void enqueue() {
 
 void pop () {
 
-	temp = head;
+	temp = top;
 
 	/* check if list is empty */
 	if (temp == NULL)	
 		printf("Stack is empty\n");
 	else {
-		head=head->next;
+		top=top->next;
 		temp->next=NULL;
 		printf("Element %d deleted...\n", temp->data);
 		free(temp);
@@ -129,8 +131,8 @@ void push () {
 	/* create a node */	
 	new_node = create_node(val);
 
-	new_node->next=head;
-	head=new_node;
+	new_node->next=top;
+	top=new_node;
 
 }
 
@@ -151,7 +153,7 @@ void display_menu () {
 int main (void) {
 
 	int command;
-	head = NULL;
+	top = NULL;
 	display_menu();
 
 	while(TRUE) {
