@@ -35,10 +35,7 @@ node_t *create_node (int val) {
 	return node;	
 }
 
-void display_stack () {
-
-	temp = top;
-
+void display_data() {
 	/* check if list is empty */
 	if (temp == NULL)		
 		printf("Stack is empty\n");
@@ -52,21 +49,16 @@ void display_stack () {
 	}
 }
 
+void display_stack () {
+
+	temp = top;
+	display_data();
+}
+
 void display_queue () {
 
 	temp = front;
-
-	/* check if list is empty */
-	if (temp == NULL)		
-		printf("Queue is empty\n");
-	else {
-		printf("\n");
-		while(temp != NULL) {
-			printf("%d\t",temp->data);
-			temp=temp->next;
-		}
-		printf("\n");
-	}
+	display_data();
 }
 
 void dequeue () {
@@ -85,15 +77,14 @@ void dequeue () {
 }
 
 void enqueue() {
-	/* create a node */	
-	new_node = (node_t *)malloc(sizeof(node_t));
-	if (new_node == NULL) {
-		printf("Error creating a new node.\n");
-		exit (CODE);
-	}
+
+	int val;
+
 	printf("\nEnter data:");
-	scanf("%d", &new_node->data);
-	new_node->next = NULL;
+	scanf("%d", &val);
+
+	/* create a node */	
+	new_node = create_node(val);
 
 	if (front == NULL) {
 		/* first element in the queue */
