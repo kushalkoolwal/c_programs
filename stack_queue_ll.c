@@ -20,6 +20,19 @@ typedef struct node {
 
 node_t *head, *new_node, *temp, *front, *rear;
 
+/* function to allocate a new node */
+node_t *create_node (int val) {
+
+	node_t *node = (node_t *)malloc(sizeof(node_t));
+	if (node == NULL) {
+		printf("Error creating a new node.\n");
+		exit (CODE);
+	}
+	node->data = val;
+	node->next = NULL;
+	return node;	
+}
+
 void display_stack () {
 
 	temp = head;
@@ -98,7 +111,7 @@ void pop () {
 
 	/* check if list is empty */
 	if (temp == NULL)	
-		printf("Queue is empty\n");
+		printf("Stack is empty\n");
 	else {
 		head=head->next;
 		temp->next=NULL;
@@ -109,14 +122,13 @@ void pop () {
 
 void push () {
 
-	/* create a node */	
-	new_node = (node_t *)malloc(sizeof(node_t));
-	if (new_node == NULL) {
-		printf("Error creating a new node.\n");
-		exit (CODE);
-	}
+	int val;
 	printf("\nEnter data:");
-	scanf("%d", &new_node->data);
+	scanf("%d", &val);
+
+	/* create a node */	
+	new_node = create_node(val);
+
 	new_node->next=head;
 	head=new_node;
 
