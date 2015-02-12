@@ -211,23 +211,53 @@ void bfs_traversal (node_t *root) {
 		print_given_level(root, i);
 }
 
+void postorder (node_t *current) {
+	
+	if (current != NULL) {
+		postorder(current->left);
+		postorder(current->right);
+		printf("%d\t", current->data);
+	}
+}
+
+void preorder (node_t *current) {
+	
+	if (current != NULL) {
+		printf("%d\t", current->data);		
+		preorder(current->left);
+		preorder(current->right);
+	}
+}
+
 void inorder (node_t *current) {
 	
 	if (current != NULL) {
 		inorder(current->left);
 		printf("%d\t", current->data);
 		inorder(current->right);
-	}	
+	}
 }
 
-void display_bst (int t) {
+/*
+ *http://www.c4learn.com/c-programs/c-program-to-implement-binary-search-tree-traversal.html
+ */
+void display_bst () {
 	
+	int t;
+
+	printf("Enter 1 (inorder), 2 (preorder, 3 (postorder))\n");
+	scanf("%d", &t);
+
 	/* check if list is empty */
 	if (root == NULL)
 		printf("Tree does not exists\n");
 	else {	
+		if (t == 1)
+			inorder(root);
 		if (t == 2)
-			inorder(root);		
+			preorder(root);
+		if (t == 3)
+			postorder(root);			
 	}
 	printf("\n\n");
 }
@@ -275,7 +305,7 @@ void display_menu () {
 	printf("Linked List Implementation\n");
 	printf("Press 0  to display this menu\n");	
 	printf("Press 1  to create BST\n");
-	printf("Press 2  to DFS traversal (in-order)\n");
+	printf("Press 2  to traverse the tree\n");
 	printf("Press 3  to search for an element\n");
 	printf("Press 4  to delete an element from BST\n");
 	printf("Press 5  to BFS traversal\n");		
@@ -313,7 +343,7 @@ int main (void) {
 			create_bst();
 			break;
 		case 2:
-			display_bst(2);
+			display_bst();
 			break;
 		case 3:
 			printf("Enter the node to be searched:");
