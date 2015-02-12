@@ -308,15 +308,15 @@ void display_menu () {
 	printf("Linked List Implementation\n");
 	printf("Press 0  to display this menu\n");	
 	printf("Press 1  to create BST\n");
-	printf("Press 2  to traverse the tree (DFS traversals)\n");
-	printf("Press 3  to search for an element\n");
-	printf("Press 4  to delete an element from BST\n");
-	printf("Press 5  to BFS traversal\n");		
-	printf("Press 6  to find height (max depth) of BST\n");
-	printf("Press 7  to find size of BST\n");
-	printf("Press 8  to mirror a BST\n");
-	printf("Press 9  to find min. node in BST\n");
-	printf("Press 10 to find max. node in BST\n");
+	printf("Press 2  to DFS traversal\n");
+	printf("Press 3  to BFS traversal\n");
+	printf("Press 4  to search for node\n");
+    printf("Press 5  to find min. node in BST\n");
+	printf("Press 6  to find max. node in BST\n");
+	printf("Press 7  to find height (max depth) of BST\n");
+	printf("Press 8  to find size of BST\n");
+	printf("Press 9  to mirror a BST\n");
+	printf("Press 10  to delete an element from BST\n");
 	printf("Press 11  to delete entire BST\n");
 	printf("Press 12  to create BST from sorted array\n");
 	printf("Press -1 to quit\n");
@@ -349,6 +349,9 @@ int main (void) {
 			dfs_traversal();
 			break;
 		case 3:
+			bfs_traversal(root);
+			break;
+		case 4:
 			printf("Enter the node to be searched:");
 			scanf("%d", &node_val);
 			temp=search_bst(root, node_val);
@@ -357,31 +360,28 @@ int main (void) {
 			else
 				printf("\nNode not found!\n");
 			break;
-		case 4:
-			printf("Enter the node to be deleted:");
-			scanf("%d", &node_val);
-			delete_node(root, node_val);
-			break;
 		case 5:
-			bfs_traversal(root);
-			break;
-		case 6:
-			printf("Height of tree is %d\n", max_depth_bst(root));
-			break;
-		case 7:
-			printf("Size of tree is %d\n", size_bst(root));
-			break;
-		case 8:
-			mirror_bst(root);
-			break;
-		case 9:
 			temp=find_min_bst(root);
 			printf("Min. node is %d\n", temp->data);
 			break;
-		case 10:
+		case 6:
 			temp=find_max_bst(root);
 			printf("Max. node is %d\n", temp->data);
 			break;
+		case 7:
+			printf("Height of tree is %d\n", max_depth_bst(root));
+			break;
+		case 8:
+			printf("Size of tree is %d\n", size_bst(root));
+			break;
+		case 9:
+			mirror_bst(root);
+			break;
+		case 10:
+			printf("Enter the node to be deleted:");
+			scanf("%d", &node_val);
+			delete_node(root, node_val);
+			break;		
 		case 11:
 			delete_bst(root);
 			break;
